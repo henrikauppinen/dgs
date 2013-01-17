@@ -7,23 +7,9 @@ class dgs_model {
 
 	public function __construct()
 	{
-		require_once 'models/db_model.php';
 		$this->db = new db_model();
 	}
 
-	public function createUser($name, $passwd, $email)
-	{
-
-		if($name == '' OR $passwd == '' OR $email == '') {
-			return FALSE;
-		}
-
-		$qu = "INSERT INTO user (name, passwd, email) VALUES ({$name}, password({$passwd}), {$email})";
-
-		$re = $this->db->query($qu);
-
-		return TRUE;
-	}
 
 	public function createCourse($name = null)
 	{

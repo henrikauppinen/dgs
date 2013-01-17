@@ -1,6 +1,6 @@
 <?php
 
-class dgs_controller {
+class dgs_controller extends controller {
 	
 	public function __construct()
 	{
@@ -16,18 +16,9 @@ class dgs_controller {
 		$this->$page();	
 	}
 
-	public function view ($view, $data = null)
-	{
-		include "views/_header.php";
-		include "views/{$view}.php";
-		include "views/_footer.php";
-	}
-
-
 	public function frontpage()
 	{	
-
-		$data['pagename'] = 'frontpage';
+		$data['pagetitle'] = 'DGS alpha 0.1';
 
 		$this->view('frontpage',$data);
 	}
@@ -126,5 +117,11 @@ class dgs_controller {
 		$this->model->createScore();
 
 		$this->view('frontpage',$data);
+	}
+
+	public function logout()
+	{
+		unset($_SESSION["logged"]);  // where $_SESSION["nome"] is your own variable. if you do not have one use only this as follow **session_unset();**
+		header("Location: index.php");
 	}
 }

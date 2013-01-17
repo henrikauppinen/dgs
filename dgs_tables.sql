@@ -4,13 +4,15 @@ CREATE TABLE user (
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(120),
 	passwd VARCHAR(120),
-	email VARCHAR(120),
+	email VARCHAR(120) NOT NULL,
+	session VARCHAR(120),
+	lastlogin DATETIME,
 	PRIMARY KEY(id)
 	);
 
 CREATE TABLE course (
 	id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(120),
+	name VARCHAR(120) NOT NULL,
 	address VARCHAR(360),
 	createtime DATETIME,
 	PRIMARY KEY(id)
@@ -18,8 +20,8 @@ CREATE TABLE course (
 
 CREATE TABLE lane (
 	id INT NOT NULL AUTO_INCREMENT,
-	course_id INT,
-	sort INT,
+	course_id INT NOT NULL,
+	sort INT NOT NULL,
 	par INT,
 	name VARCHAR(100),
 	distance INT,
@@ -28,7 +30,7 @@ CREATE TABLE lane (
 
 CREATE TABLE scoresheet (
 	id INT NOT NULL AUTO_INCREMENT,
-	user_id INT,
+	user_id INT NOT NULL,
 	course_id INT,
 	createdate DATETIME,
 	comment VARCHAR(100),
@@ -37,8 +39,8 @@ CREATE TABLE scoresheet (
 
 CREATE TABLE score (
 	id INT NOT NULL AUTO_INCREMENT,
-	scoresheet_id INT,
-	lane_id INT,
+	scoresheet_id INT NOT NULL,
+	lane_id INT NOT NULL,
 	score INT,
 	coord_lat INT,
 	coord_long INT,
