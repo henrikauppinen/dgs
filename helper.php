@@ -9,6 +9,6 @@ function param($name)
 		return mysql_real_escape_string($_POST[$name]);
 	}
 	else {
-		return false;
+		return null;
 	}
 }

@@ -5,7 +5,8 @@ CREATE TABLE user (
 	name VARCHAR(120),
 	passwd VARCHAR(120),
 	email VARCHAR(120) NOT NULL,
-	session VARCHAR(120),
+	session VARCHAR(60),
+	token VARCHAR(60),
 	lastlogin DATETIME,
 	PRIMARY KEY(id)
 	);
@@ -25,6 +26,10 @@ CREATE TABLE lane (
 	par INT,
 	name VARCHAR(100),
 	distance INT,
+	createtime DATETIME,
+	create_user_id INT,
+	updatetime DATETIME,
+	update_user_id INT,
 	PRIMARY KEY(id)
 	);
 

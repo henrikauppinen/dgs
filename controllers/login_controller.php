@@ -9,7 +9,8 @@ class login_controller extends controller {
 
 		$page = param('p');
 
-		if($page == FALSE) {
+		if($page == false) {
+			# default fallback
 			$page = 'login';
 		}
 
@@ -41,7 +42,7 @@ class login_controller extends controller {
 
 		$this->view('login', $data);
 	}
-	
+
 	public function createaccount()
 	{
 		$data['pagetitle'] = 'Create Account';

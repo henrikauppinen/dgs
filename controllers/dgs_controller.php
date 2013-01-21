@@ -19,6 +19,7 @@ class dgs_controller extends controller {
 	public function frontpage()
 	{	
 		$data['pagetitle'] = 'DGS alpha 0.1';
+		$data['page'] = 'frontpage';
 
 		$this->view('frontpage',$data);
 	}
@@ -26,6 +27,7 @@ class dgs_controller extends controller {
 	public function courses()
 	{
 		$data['pagetitle'] = 'Courses';
+		$data['page'] = 'courses';
 
 		$func = param('f');
 
@@ -52,7 +54,9 @@ class dgs_controller extends controller {
 	public function course()
 	{
 		# view / edit course
+
 		$data['pagetitle'] = 'Course editor';
+		$data['page'] = 'course'; 
 
 		$course_id = param('cid');
 
@@ -66,19 +70,51 @@ class dgs_controller extends controller {
 		if($func == 'add') {
 			$name = param('name');
 			$par = param('par');
-			$distance = 10;
+			$distance = param('distance');
 
 			$data['message'] = $this->model->createLane($course_id, $par, $name, $distance);
 		}
 
 		$data['course'] = $this->model->getCourseData($course_id);
 
+		if($data['course'] == false) {
+			$data['message'] == 'Error loading course data';
+			unset($data['course']);
+		}
+
 		$this->view('course', $data);
+	}
+
+	public function lane()
+	{
+		# view / edit lane
+
+		$data['pagetitle'] = 'Lane editor';
+		$data['page'] = 'lane';
+
+		$lane_id = param('lid');
+
+		$func = param('f');
+
+		if($func == 'edit') {
+			$name = param('name');
+			$par = param('par');
+			$distance = param('distance');
+
+			$data['message'] = $this->model->editLane($lane_id, $name, $par, $distance);
+		}
+
+		$data['lane'] = $this->model->getLaneData($lane_id);
+		$data['course'] = $this->model->getCourseData($data['lane']['course_id']);
+
+		$this->view('lane', $data);
+
 	}
 
 	public function startcourse()
 	{
 		$data['pagetitle'] = 'Select course';
+		$data['page'] = 'startcourse';
 
 		$data['courses'] = $this->model->listCourses();
 
@@ -89,6 +125,8 @@ class dgs_controller extends controller {
 	{
 
 		$func = param('f');
+
+		
 
 		if($func == 'start') {
 

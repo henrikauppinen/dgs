@@ -17,7 +17,7 @@ class dgs_model {
 			return false;
 		}
 
-		$qu = "INSERT INTO course (name, createdate) VALUES ('{$name}', now())";
+		$qu = "INSERT INTO course (name, createtime) VALUES ('{$name}', now())";
 
 		$re = $this->db->query($qu);
 
@@ -38,6 +38,26 @@ class dgs_model {
 
 	}
 
+	public function listCourses()
+	{
+		$qu = "SELECT
+					id,
+					name,
+					createtime
+				FROM
+					course
+				";
+		$re = $this->db->query($qu);
+
+		$data = array();
+		
+		while($row = mysql_fetch_assoc($re)) {
+			$data[] = $row;
+		}
+
+		return $data;
+	}
+
 	public function getCourseData($course_id = null)
 	{
 		if($course_id == null) {
@@ -46,13 +66,20 @@ class dgs_model {
 
 		$re = $this->db->query("SELECT * FROM course WHERE id = {$course_id}");
 
+		if(mysql_num_rows($re) == 0) {
+			return false;
+		}
+
 		$data = mysql_fetch_assoc($re);
 
 		$re = $this->db->query("SELECT * FROM lane WHERE course_id = {$course_id}");
 
-		while($row = mysql_fetch_assoc($re)) {
-			$data['lanes'][] = $row;
+		if(mysql_num_rows($re) > 0) {
+			while($row = mysql_fetch_assoc($re)) {
+				$data['lanes'][] = $row;
+			}
 		}
+
 
 		return $data;
 	}
@@ -73,11 +100,55 @@ class dgs_model {
 		return TRUE;
 	}
 
-	public function deleteLane($lane_id)
+	public function editLane($lane_id, $par = null, $name = null, $distance = null)
 	{
+		if($par != null) {
+			$par = "par = $par,";
+		}
+		if($name != null) {
+			$name = "name = '$name',";
+		}
+		if($distance != null) {
+			$distance = "distance = $distance,";
+		}
+
+		$qu = "UPDATE
+					lane
+				SET
+					$par
+					$name
+					$distance
+					updatetime = now()
+				";
+
+		$re = $this->db->query($qu);
+
+		return array('status' => true, 'Lane updated');
+	}
+
+	public function deleteLane($lane_id)
+	{		
+
+		# not ready
+
+		return false;
+
 		$this->db->query("DELETE FROM lane WHERE id = {$lane_id}");
 
 		return true;
+	}
+
+	public function getLaneData($lane_id)
+	{
+		$re = $this->db->query("SELECT * FROM lane WHERE id = {$lane_id}");
+
+		if(mysql_num_rows($re) == 0) {
+			return false;
+		}
+
+		$data = mysql_fetch_assoc($re);
+
+		return $data;
 	}
 
 	public function getNextLaneno($course_id)
@@ -114,29 +185,9 @@ class dgs_model {
 		return $data;
 	}
 
-	public function listCourses()
-	{
-		$qu = "SELECT
-					course.id,
-					course.name,
-					createdate
-				FROM
-					course
-			";
-		$re = $this->db->query($qu);
-
-		$data = null;
-		
-		while($row = mysql_fetch_assoc($re)) {
-			$data[] = $row;
-		}
-
-		return $data;
-	}
-
 	public function createScoresheet($course_id)
 	{
-		$qu = "INSERT INTO scoresheet (user_id, course_id, createdate) VALUES ($this->active_user_id, $course_id, now())";
+		$qu = "INSERT INTO scoresheet (user_id, course_id, createtime) VALUES ($this->active_user_id, $course_id, now())";
 
 		$re = $this->db->query($qu);
 
