@@ -17,23 +17,23 @@ class login_controller extends controller {
 		$this->$page();
 	}
 
-	public function login($email = '', $passwd = '')
+	public function login($email = '', $passwd = '', $token = '')
 	{
 		$data['pagetitle'] = 'Login';
+		$data['page'] = 'login';
 
-		if($email == '' && $passwd == '') {
+		if($email == '' && $passwd == '' && $token == '') {
 			$email = param('email');
 			$passwd = param('passwd');
+			$token = param('token');
 		}
 
-		if($email != '' && $passwd != '') {
-			# check credentials
+		if($email != '' && $passwd != '' && $token != '') {
 
-			$auth = $this->model->login($email, $passwd);
+			$auth = $this->model->login($email, $passwd, $token);
 
 			if($auth['status'] == true) {
-				header('Location: index.php?p=frontpage');
-				die;
+				
 			}
 			elseif($auth['status'] == false) {
 				$data['message'] = $auth['message'];

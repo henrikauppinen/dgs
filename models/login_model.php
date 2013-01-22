@@ -7,9 +7,9 @@ class login_model {
 		$this->db = new db_model();
 	}
 
-	public function login($email, $passwd)
+	public function login($email, $passwd, $token)
 	{
-		if($email == '' OR $passwd == '') {
+		if($email == '' OR $passwd == '' OR $token == '') {
 			return array('status' => false, 'message' => 'System error');
 		}
 
@@ -27,7 +27,7 @@ class login_model {
 
 			$_SESSION['logged'] = 'true';
 
-			$re = $this->db->query("UPDATE user SET session = '{$sid}', lastlogin = now() WHERE id = {$userdata['id']}");
+			$re = $this->db->query("UPDATE user SET session = '{$sid}', token = '{$token}', lastlogin = now() WHERE id = {$userdata['id']}");
 
 			return array('status' => true, 'message' => 'Login ok');
 

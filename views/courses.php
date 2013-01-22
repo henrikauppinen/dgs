@@ -1,6 +1,8 @@
-<div data-role="page" data-add-back-btn="true">
-	<div data-role="header"> 
+<div data-role="page">
+	<div data-role="header">
+		
 		<h1><?php echo $data['pagetitle'] ?></h1> 
+		<a href="?p=frontpage" data-icon="home" class="ui-btn-right">Home</a>
 	</div>
 	<div data-role="content">
 		<?php
@@ -23,11 +25,15 @@
 			<?php
 		}
 		?>
-		<form method="post" action="dgs.php?p=courses&cid=<?php echo $course['id'] ?>">
-			<label for="name">Name</label>
-			<input name="name" type="text" value="" data-clear-btn="true" />
-			<input type="submit" value="Add course" />
-			<input type="hidden" name="f" value="create" />
-		</form>
+			
+		<div data-role="collapsible" data-content-theme="d">
+			<h3>Create new course</h3>
+			<form method="post" action="dgs.php?p=courses&cid=<?php echo $course['id'] ?>">
+				<label for="name">Name</label>
+				<input name="name" type="text" value="" data-clear-btn="true" />
+				<input type="submit" value="Add course" />
+				<input type="hidden" name="f" value="create" />
+			</form>
+		</div>
 	</div>
 </div>

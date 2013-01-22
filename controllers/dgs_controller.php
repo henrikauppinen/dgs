@@ -16,6 +16,11 @@ class dgs_controller extends controller {
 		$this->$page();	
 	}
 
+	public function session()
+	{
+		echo "1";
+	}
+
 	public function frontpage()
 	{	
 		$data['pagetitle'] = 'DGS alpha 0.1';
@@ -72,7 +77,7 @@ class dgs_controller extends controller {
 			$par = param('par');
 			$distance = param('distance');
 
-			$data['message'] = $this->model->createLane($course_id, $par, $name, $distance);
+			$data['message'] = $this->model->createHole($course_id, $par, $name, $distance);
 		}
 
 		$data['course'] = $this->model->getCourseData($course_id);
@@ -85,14 +90,14 @@ class dgs_controller extends controller {
 		$this->view('course', $data);
 	}
 
-	public function lane()
+	public function hole()
 	{
-		# view / edit lane
+		# view / edit hole
 
-		$data['pagetitle'] = 'Lane editor';
-		$data['page'] = 'lane';
+		$data['pagetitle'] = 'Hole editor';
+		$data['page'] = 'hole';
 
-		$lane_id = param('lid');
+		$hole_id = param('lid');
 
 		$func = param('f');
 
@@ -101,13 +106,13 @@ class dgs_controller extends controller {
 			$par = param('par');
 			$distance = param('distance');
 
-			$data['message'] = $this->model->editLane($lane_id, $name, $par, $distance);
+			$data['message'] = $this->model->editHole($hole_id, $name, $par, $distance);
 		}
 
-		$data['lane'] = $this->model->getLaneData($lane_id);
-		$data['course'] = $this->model->getCourseData($data['lane']['course_id']);
+		$data['hole'] = $this->model->getHoleData($hole_id);
+		$data['course'] = $this->model->getCourseData($data['hole']['course_id']);
 
-		$this->view('lane', $data);
+		$this->view('hole', $data);
 
 	}
 
@@ -139,12 +144,12 @@ class dgs_controller extends controller {
 			# if sid = tyhjä, haetaan userin aktiivinen sessio...
 		}
 
-		$data['lane'] = $this->model->getNextLane($scoresheet_id);
+		$data['hole'] = $this->model->getNextHole($scoresheet_id);
 
-		$data['pagetitle'] =  $data['lane']['name'].' '.$data['lane']['sort'];
+		$data['pagetitle'] =  $data['hole']['name'].' '.$data['hole']['sort'];
 
 		for($i=1; $i<7; $i++) {
-			$data['score_select_list'][] = $i - $data['lane']['par'];
+			$data['score_select_list'][] = $i - $data['hole']['par'];
 		}
 
 		$this->view('oncourse', $data);

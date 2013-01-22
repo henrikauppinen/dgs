@@ -31,7 +31,7 @@ class dgs_model {
 			return false;
 		}
 
-		$this->db->query("DELETE FROM lane WHERE course_id = {$course_id}");
+		$this->db->query("DELETE FROM hole WHERE course_id = {$course_id}");
 		$this->db->query("DELETE FROM course WHERE id = {$course_id}");
 
 		return true;
@@ -72,11 +72,11 @@ class dgs_model {
 
 		$data = mysql_fetch_assoc($re);
 
-		$re = $this->db->query("SELECT * FROM lane WHERE course_id = {$course_id}");
+		$re = $this->db->query("SELECT * FROM hole WHERE course_id = {$course_id}");
 
 		if(mysql_num_rows($re) > 0) {
 			while($row = mysql_fetch_assoc($re)) {
-				$data['lanes'][] = $row;
+				$data['holes'][] = $row;
 			}
 		}
 
@@ -84,23 +84,23 @@ class dgs_model {
 		return $data;
 	}
 
-	public function createLane($course_id, $par, $name = null, $distance = null)
+	public function createHole($course_id, $par, $name = null, $distance = null)
 	{
 		if($course_id == 0 OR $par == 0)
 		{
 			return false;
 		}
 
-		$sort = $this->getNextLaneno($course_id);
+		$sort = $this->getNextHoleno($course_id);
 
-		$qu = "INSERT INTO lane (course_id, par, sort, name, distance) VALUES ($course_id, $par, $sort, '{$name}', $distance)";
+		$qu = "INSERT INTO hole (course_id, par, sort, name, distance) VALUES ($course_id, $par, $sort, '{$name}', $distance)";
 
 		$re = $this->db->query($qu);
 
 		return TRUE;
 	}
 
-	public function editLane($lane_id, $par = null, $name = null, $distance = null)
+	public function editHole($hole_id, $par = null, $name = null, $distance = null)
 	{
 		if($par != null) {
 			$par = "par = $par,";
@@ -113,7 +113,7 @@ class dgs_model {
 		}
 
 		$qu = "UPDATE
-					lane
+					hole
 				SET
 					$par
 					$name
@@ -123,24 +123,24 @@ class dgs_model {
 
 		$re = $this->db->query($qu);
 
-		return array('status' => true, 'Lane updated');
+		return array('status' => true, 'Hole updated');
 	}
 
-	public function deleteLane($lane_id)
+	public function deleteHole($hole_id)
 	{		
 
 		# not ready
 
 		return false;
 
-		$this->db->query("DELETE FROM lane WHERE id = {$lane_id}");
+		$this->db->query("DELETE FROM hole WHERE id = {$hole_id}");
 
 		return true;
 	}
 
-	public function getLaneData($lane_id)
+	public function getHoleData($hole_id)
 	{
-		$re = $this->db->query("SELECT * FROM lane WHERE id = {$lane_id}");
+		$re = $this->db->query("SELECT * FROM hole WHERE id = {$hole_id}");
 
 		if(mysql_num_rows($re) == 0) {
 			return false;
@@ -151,9 +151,9 @@ class dgs_model {
 		return $data;
 	}
 
-	public function getNextLaneno($course_id)
+	public function getNextHoleno($course_id)
 	{
-		$re = $this->db->query("SELECT sort + 1 FROM lane WHERE course_id = {$course_id} ORDER BY sort DESC");
+		$re = $this->db->query("SELECT sort + 1 FROM hole WHERE course_id = {$course_id} ORDER BY sort DESC");
 
 
 		if(mysql_num_rows($re) == 0) {
@@ -166,7 +166,7 @@ class dgs_model {
 
 	}
 
-	public function getNextLane($scoresheet_id = null)
+	public function getNextHole($scoresheet_id = null)
 	{
 		if($scoresheet_id == null) {
 			return false;
@@ -178,7 +178,7 @@ class dgs_model {
 
 		$course_id = $row['course_id'];
 
-		$re = $this->db->query("SELECT * FROM lane WHERE course_id = $course_id AND sort = 1");
+		$re = $this->db->query("SELECT * FROM hole WHERE course_id = $course_id AND sort = 1");
 
 		$data = mysql_fetch_assoc($re);
 

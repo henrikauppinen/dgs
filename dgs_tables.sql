@@ -19,7 +19,7 @@ CREATE TABLE course (
 	PRIMARY KEY(id)
 	);
 
-CREATE TABLE lane (
+CREATE TABLE hole (
 	id INT NOT NULL AUTO_INCREMENT,
 	course_id INT NOT NULL,
 	sort INT NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE scoresheet (
 CREATE TABLE score (
 	id INT NOT NULL AUTO_INCREMENT,
 	scoresheet_id INT NOT NULL,
-	lane_id INT NOT NULL,
+	hole_id INT NOT NULL,
 	score INT,
 	coord_lat INT,
 	coord_long INT,

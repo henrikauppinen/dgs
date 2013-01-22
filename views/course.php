@@ -1,7 +1,8 @@
-<div data-role="page" data-add-back-btn="true">
-
+<div data-role="page">
 	<div data-role="header"> 
-		<h1><?php echo $data['pagetitle'] ?></h1> 
+		<a href="?p=courses&cid=<?php echo $data['course']['id'] ?>" data-icon="arrow-l">Back</a>
+		<h1><?php echo $data['pagetitle'] ?></h1>
+		<a href="?p=frontpage" data-icon="home">Home</a>
 	</div>
 
 	<div data-role="content"> 
@@ -9,20 +10,20 @@
 
 		<?php
 
-		if(!(isset($data['course']['lanes']))) { ?>
-			<p>No lanes!</p>
+		if(!(isset($data['course']['holes']))) { ?>
+			<p>No holes!</p>
 		<?php }
 		else {
 			?>
 			<ul data-role="listview" data-inset="true">
 			<?php
-			foreach($data['course']['lanes'] as $lane) {
+			foreach($data['course']['holes'] as $hole) {
 				?>
 				<li data-icon="edit">
-					<a href="index.php?p=lane&lid=<?php echo $lane['id'] ?>">
-						<h3><?php echo $lane['sort'].". ".$lane['name'] ?></h3>
-						<p>Par: <?php echo $lane['par'] ?></p>
-						<p>Distance: <?php echo $lane['distance'] ?></p>
+					<a href="?p=hole&lid=<?php echo $hole['id'] ?>">
+						<h3><?php echo $hole['sort'].". ".$hole['name'] ?></h3>
+						<p>Par: <?php echo $hole['par'] ?></p>
+						<p>Distance: <?php echo $hole['distance'] ?></p>
 					</a>
 				</li>
 			<?php } ?>
@@ -31,12 +32,12 @@
 		}
 
 		#
-		# create new lane form
+		# create new hole form
 		# 
 
 		?>
 		<div data-role="collapsible" data-content-theme="d">
-			<h3>Create new lane</h3>
+			<h3>Create new hole</h3>
 			<form method="POST" action="?p=course&cid=<?php echo $data['course']['id'] ?>">
 				<label for="name">Name</label>
 				<input name="name" type="text" />
