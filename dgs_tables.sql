@@ -49,6 +49,6 @@ CREATE TABLE score (
 	score INT,
 	coord_lat INT,
 	coord_long INT,
-	createtime DATETIME
+	createtime DATETIME,
 	PRIMARY KEY(id)
 	);

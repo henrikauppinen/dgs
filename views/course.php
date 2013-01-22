@@ -37,7 +37,7 @@
 		?>
 		<div data-role="collapsible" data-content-theme="d">
 			<h3>Create new lane</h3>
-			<form method="POST" action="?p=course&f=add">
+			<form method="POST" action="?p=course&cid=<?php echo $data['course']['id'] ?>">
 				<label for="name">Name</label>
 				<input name="name" type="text" />
 				<label for="par">Par</label>
@@ -45,7 +45,7 @@
 				<label for="distance">Distance</label>
 				<input type="range" name="distance" value="60" min="25" max="300" data-highlight="true" />
 				<input type="submit" value="Add" />
-				<input type="hidden" name="cid" value="<?php echo $data['course']['id'] ?>" />
+				<input type="hidden" name="f" value="add" />
 			</form>
 		</div>
 	</div>

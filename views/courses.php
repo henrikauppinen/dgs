@@ -1,4 +1,4 @@
-<div data-role="page">
+<div data-role="page" data-add-back-btn="true">
 	<div data-role="header"> 
 		<h1><?php echo $data['pagetitle'] ?></h1> 
 	</div>
@@ -10,22 +10,24 @@
 			<?php
 		}
 		else {
-			
-			?><ul data-role="listview" data-inset="true"><?php
+			?>
+			<ul data-role="listview" data-inset="true">
+			<?php
 
 			foreach($data['courselist'] as $course) {
 				?>
-				<li><a href="index.php?p=course&cid=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a></li>
+				<li><a href="dgs.php?p=course&cid=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a></li>
 				<?php
 			} ?>
 			</ul>
 			<?php
 		}
 		?>
-		<form method="post" action="index.php?p=courses&f=create">
+		<form method="post" action="dgs.php?p=courses&cid=<?php echo $course['id'] ?>">
 			<label for="name">Name</label>
 			<input name="name" type="text" value="" data-clear-btn="true" />
 			<input type="submit" value="Add course" />
+			<input type="hidden" name="f" value="create" />
 		</form>
-</div>
+	</div>
 </div>
