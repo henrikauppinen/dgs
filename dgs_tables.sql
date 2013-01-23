@@ -39,7 +39,9 @@ CREATE TABLE scoresheet (
 	id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	course_id INT,
-	createdate DATETIME,
+	createtime DATETIME,
+	updatetime DATETIME,
+	completetime DATETIME,
 	comment VARCHAR(100),
 	PRIMARY KEY(id)
 	);

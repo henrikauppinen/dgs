@@ -166,28 +166,34 @@ class dgs_model {
 
 	}
 
-	public function getNextHole($scoresheet_id = null)
+	public function getNextHole()
 	{
-		if($scoresheet_id == null) {
+		if($_SESSION['scoresheet_id'] == null) {
 			return false;
 		}
 
-		$re = $this->db->query("SELECT course_id FROM scoresheet WHERE id = $scoresheet_id");
+		$re = $this->db->query("SELECT course_id FROM scoresheet WHERE id = {$_SESSION['scoresheet_id']}");
 
 		$row = mysql_fetch_assoc($re);
 
 		$course_id = $row['course_id'];
 
-		$re = $this->db->query("SELECT * FROM hole WHERE course_id = $course_id AND sort = 1");
+		$next_hole_no = $_SESSION['last_hole_no'] + 1;
+
+		$re = $this->db->query("SELECT * FROM hole WHERE course_id = $course_id AND sort = $next_hole_no");
+
+		if(mysql_num_rows($re) == 0) {
+			return false;
+		}
 
 		$data = mysql_fetch_assoc($re);
 
 		return $data;
 	}
 
-	public function createScoresheet($course_id)
+	public function createScoresheet()
 	{
-		$qu = "INSERT INTO scoresheet (user_id, course_id, createtime) VALUES ($this->active_user_id, $course_id, now())";
+		$qu = "INSERT INTO scoresheet (user_id, course_id, createtime) VALUES ({$_SESSION['uid']}, {$_SESSION['oncourse']}, now())";
 
 		$re = $this->db->query($qu);
 
@@ -195,6 +201,10 @@ class dgs_model {
 
 		$re = $this->db->query($qu);
 		$data = mysql_fetch_array($re);
+
+		$_SESSION['scoresheet_id'] = $data[0];
+		$_SESSION['last_hole_no'] = 0;
+
 		return $data[0];
 	}
 
@@ -210,19 +220,22 @@ class dgs_model {
 		}
 	}
 
-	public function createScore($track_id, $score)
+	public function createScore($score = null)
 	{
+		if($score == null) {
+			return false;
+		}
+
 		$qu = "INSERT INTO score (scoresheet_id, score, createtime)
 				VALUES (
-					$this->active_scoresheet_id,
-					$this->active_user_id,
+					{$_SESSION['scoresheet_id']},
 					$score,
 					now()
 				)";
 
 		$re = $this->db->query($qu);
 
-		return TRUE;
+		return true;
 	}
 
 	public function deleteScore()
@@ -231,22 +244,22 @@ class dgs_model {
 
 		$re = $this->db->query($qu);
 
-		return TRUE;
+		return true;
 	}
 
 	public function currentTotalScore()
 	{
-		$qu = "SELECT sum(score) FROM score WHERE scoresheet_id = {$this->active_scoresheet_id}";
+		$qu = "SELECT sum(score) totalscore FROM score WHERE scoresheet_id = {$_SESSION['scoresheet_id']}";
 
 		$re = $this->db->query($qu);
 
 		$row = mysql_fetch_assoc($re);
 
-		return $re[0];
+		return $row['totalscore'];
 
 	}
 	
-	public function signIn($cid)
+	public function checkIn($cid)
 	{
 
 		$uid = $_SESSION['uid'];
@@ -257,9 +270,9 @@ class dgs_model {
 
 		$this->db->query("UPDATE user SET oncourse = $cid, signintime = now() WHERE id = $uid");
 
-		$data['course'] = $this->getCourseData($cid);
+		$_SESSION['oncourse'] = $cid;
 
-		return $data;
+		return true;
 	}
 
 }

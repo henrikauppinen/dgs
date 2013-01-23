@@ -130,10 +130,10 @@ class dgs_controller extends controller {
 
 
 		if($cid != '') {
-			$this->model->signIn($cid);
+			$this->model->checkIn($cid);
 		}
 
-		$data['pool'] = $this->model->pool();
+		$data['course'] = $this->model->getCourseData($cid);
 
 		$this->view('poolarea', $data);
 	}
@@ -141,28 +141,39 @@ class dgs_controller extends controller {
 	public function oncourse()
 	{
 
-		$func = param('f');
+		$cid = $_SESSION['oncourse'];
 
-		if($func == 'start') {
+		$score = param('score');
 
-			$course_id = param('cid');
+		if(!(isset($_SESSION['scoresheet_id']))) {
+			$this->model->createScoresheet();
+		}
 
-			$scoresheet_id = $this->model->createScoresheet($course_id);
+		if($score != '') {
+			$this->model->createScore($score);
+			$_SESSION['last_hole_no'] = $_SESSION['last_hole_no'] + 1;
+		}
+
+		$data['hole'] = $this->model->getNextHole();
+
+		if($data['hole'] == false) {
+
+			$data['totalscore'] = $this->model->currentTotalScore();
+
+			$data['course'] = $this->model->getCourseData($_SESSION['oncourse']);
+
+			$this->view('coursecompleted', $data);
 		}
 		else {
-			$scoresheet_id = param('sid');
-			# if sid = tyhjä, haetaan userin aktiivinen sessio...
+
+			$data['pagetitle'] =  $data['hole']['name'].' '.$data['hole']['sort'];
+
+			for($i=1; $i<7; $i++) {
+				$data['score_select_list'][] = $i - $data['hole']['par'];
+			}
+
+			$this->view('oncourse', $data);
 		}
-
-		$data['hole'] = $this->model->getNextHole($scoresheet_id);
-
-		$data['pagetitle'] =  $data['hole']['name'].' '.$data['hole']['sort'];
-
-		for($i=1; $i<7; $i++) {
-			$data['score_select_list'][] = $i - $data['hole']['par'];
-		}
-
-		$this->view('oncourse', $data);
 	}
 
 	public function add()
