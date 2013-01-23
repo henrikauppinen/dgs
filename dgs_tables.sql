@@ -5,6 +5,8 @@ CREATE TABLE user (
 	name VARCHAR(120),
 	passwd VARCHAR(120),
 	email VARCHAR(120) NOT NULL,
+	oncourse INT,
+	checkintime DATETIME,
 	session VARCHAR(60),
 	token VARCHAR(60),
 	lastlogin DATETIME,

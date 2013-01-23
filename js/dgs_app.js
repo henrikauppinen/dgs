@@ -1,63 +1,43 @@
 // DGS App javascript
 
-$(document).ready(function() {
+
+$("#launchpage").live('pageinit', function() {
 	// initial App load
-	$.mobile.changePage('dgs.php');
-	
-	return false;
 
 	// session
-	var token = localStorage.getItem('token');
+	var tokenVal = localStorage.getItem('token');
 
-	// alert("token: " + token);
-	/*
-	if(token != null) {
+	if(tokenVal != null) {
 		$.ajax({
-			url: 'dgs.php?p=session&token' + token,
-			success: function(data) {
-				if(data == 1) {
-					$.mobile.changePage('dgs.php?p=frontpage');
+			url: 'session.php',
+			type: 'post',
+			data: { token: tokenVal },
+			success: function(res) {
+				if(res != "0") {
+					// update token
+					localStorage.setItem('token', res);
 				}
-				else {
-					$.mobile.changePage('dgs.php');
-				}
+			},
+			complete: function() {
+				$.mobile.changePage('dgs.php');
 			}
-		});
-		
+		});	
 	}
 	else {
 		$.mobile.changePage('dgs.php');
 	}
-	*/
-
-	// check localStorage for last page
-	/*
-	var lastpage = localStorage.getItem('lastpage');
-
-	if(lastpage == null) {
-		// default page
-		$.mobile.changePage('dgs.php');
-	}
-	else {
-		$.mobile.changePage(lastpage);
-	}
-	*/
-
-
+	
 });
 
-/*
-$(document).on('pageinit', function() {
 
+$("#login").live('pageinit', function() {
+
+	// save session id to localStorage
 	$('#loginform').on('submit', function() {
-		var token = $('#tokenid').val();
-		localStorage.setItem('token', token);
+
+		var tokenVal = $('#tokenid').val();
+		localStorage.setItem('token', tokenVal);
+
 	});
 
 });
-
-
-$(document).on('pageload', function(e, data) {
-	localStorage.setItem('lastpage', data.url);
-});
-*/

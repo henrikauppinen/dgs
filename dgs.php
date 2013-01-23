@@ -1,11 +1,11 @@
 <?php
 
-session_start();
-
 require_once 'models/db_model.php';
 require_once 'models/login_model.php';
 require_once 'controllers/controller.php';
 require_once 'helper.php';
+
+session_start();
 
 if(!(isset($_SESSION['logged'])))
 {

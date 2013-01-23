@@ -1,5 +1,5 @@
 <div data-role="page">
-	<div data-role="header"> 
+	<div data-role="header" data-position="fixed"> 
 		<a href="?p=courses&cid=<?php echo $data['course']['id'] ?>" data-icon="arrow-l">Back</a>
 		<h1><?php echo $data['pagetitle'] ?></h1>
 		<a href="?p=frontpage" data-icon="home">Home</a>

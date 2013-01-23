@@ -1,5 +1,5 @@
 <div data-role="page">
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
 		
 		<h1><?php echo $data['pagetitle'] ?></h1> 
 		<a href="?p=frontpage" data-icon="home" class="ui-btn-right">Home</a>

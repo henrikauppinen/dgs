@@ -26,6 +26,9 @@ class login_model {
 			$sid = session_id();
 
 			$_SESSION['logged'] = 'true';
+			$_SESSION['uid'] = $userdata['id'];
+			$_SESSION['email'] = $userdata['email'];
+			$_SESSION['dispname'] = 'Nimi';
 
 			$re = $this->db->query("UPDATE user SET session = '{$sid}', token = '{$token}', lastlogin = now() WHERE id = {$userdata['id']}");
 
@@ -33,7 +36,7 @@ class login_model {
 
 		}
 		else {
-			return array('status' => false, 'message' => 'Wrong password '.$userdata['passwd'].'/'.md5($passwd));
+			return array('status' => false, 'message' => 'Wrong password!');
 		}
 	}
 
@@ -63,6 +66,19 @@ class login_model {
 		$re = $this->db->query($qu);
 
 		return array('status' => true);
+	}
+
+	public function findSession($token, $session_id)
+	{
+		$re = $this->db->query("SELECT session FROM user WHERE token = '{$token}'");
+
+		if(mysql_num_rows($re) == 0) {
+			return false;
+		}
+
+		$row = mysql_fetch_assoc($re);
+
+		
 	}
 
 } 

@@ -33,7 +33,7 @@ class login_controller extends controller {
 			$auth = $this->model->login($email, $passwd, $token);
 
 			if($auth['status'] == true) {
-				
+				header("Location: dgs.php?p=frontpage");
 			}
 			elseif($auth['status'] == false) {
 				$data['message'] = $auth['message'];
@@ -41,6 +41,16 @@ class login_controller extends controller {
 		}
 
 		$this->view('login', $data);
+	}
+
+	public function checkSession($token = '')
+	{
+		if($token == '') {
+			return false;
+		}
+
+		$auth = $this->model->findSession($token, session_id());
+
 	}
 
 	public function createaccount()

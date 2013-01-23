@@ -245,5 +245,21 @@ class dgs_model {
 		return $re[0];
 
 	}
-		
+	
+	public function signIn($cid)
+	{
+
+		$uid = $_SESSION['uid'];
+
+		if($uid == '' OR $cid == '') {
+			return false;
+		}
+
+		$this->db->query("UPDATE user SET oncourse = $cid, signintime = now() WHERE id = $uid");
+
+		$data['course'] = $this->getCourseData($cid);
+
+		return $data;
+	}
+
 }

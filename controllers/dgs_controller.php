@@ -16,11 +16,6 @@ class dgs_controller extends controller {
 		$this->$page();	
 	}
 
-	public function session()
-	{
-		echo "1";
-	}
-
 	public function frontpage()
 	{	
 		$data['pagetitle'] = 'DGS alpha 0.1';
@@ -116,22 +111,37 @@ class dgs_controller extends controller {
 
 	}
 
-	public function startcourse()
+	public function checkin()
 	{
 		$data['pagetitle'] = 'Select course';
-		$data['page'] = 'startcourse';
+		$data['page'] = 'checkin';
 
 		$data['courses'] = $this->model->listCourses();
 
-		$this->view('startcourse', $data);
+		$this->view('checkin', $data);
+	}
+
+	public function poolarea()
+	{
+		$data['pagetitle'] = 'Pooling area';
+		$data['page'] = 'poolarea';
+
+		$cid = param('cid');
+
+
+		if($cid != '') {
+			$this->model->signIn($cid);
+		}
+
+		$data['pool'] = $this->model->pool();
+
+		$this->view('poolarea', $data);
 	}
 
 	public function oncourse()
 	{
 
 		$func = param('f');
-
-		
 
 		if($func == 'start') {
 
