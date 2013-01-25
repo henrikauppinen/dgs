@@ -14,7 +14,7 @@
 			<input type="hidden" name="token" id="tokenid" value="<?php echo session_id(); ?>" />
 		</form>
 
-		<a href="index.php?p=createaccount" data-role="button">Create account</a>
+		<a href="dgs.php?p=createaccount" data-role="button">Create account</a>
 
 	</div>
 </div>

@@ -268,7 +268,7 @@ class dgs_model {
 			return false;
 		}
 
-		$this->db->query("UPDATE user SET oncourse = $cid, signintime = now() WHERE id = $uid");
+		$this->db->query("UPDATE user SET oncourse = $cid, checkintime = now() WHERE id = $uid");
 
 		$_SESSION['oncourse'] = $cid;
 
