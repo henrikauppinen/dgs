@@ -1,5 +1,5 @@
 <div data-role="page">
-	<div data-role="header"> 
+	<div data-role="header" data-theme="b" data-position="fixed"> 
 		<h1>Course completed!</h1> 
 	</div>
 	<div data-role="content">

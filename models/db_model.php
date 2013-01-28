@@ -30,4 +30,17 @@ class db_model {
 		return $re;
 	}
 
+	public function fetchRow($query = NULL)
+	{
+		if($query == NULL) {
+			die('Query on tyhjä??');
+		}
+
+		$re = $this->query($query);
+
+		$data = mysql_fetch_assoc($re);
+
+		return $data;
+	}
+
 }

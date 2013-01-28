@@ -9,3 +9,12 @@ hr {
 	color: #cccccc;
 	padding: 10px;
 }
+
+.profile_top_stats div {
+	padding: 10px;
+	border: 1px solid #cccccc;
+}
+
+div.ui-grid-c div span strong {
+	display: block;
+}

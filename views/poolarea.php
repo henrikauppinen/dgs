@@ -1,7 +1,7 @@
 <div data-role="page" id="poolarea">
-	<div data-role="header" data-position="fixed">
-		<a href="#popupBasic" data-rel="popup">Settings</a>
+	<div data-role="header" data-theme="b" data-position="fixed">
 		<h1><?php echo $data['pagetitle'] ?></h1>
+		<a href="?p=checkin" data-icon="check" class="ui-btn-right">Check in</a>
 	</div>
 
 	<div class="course_img">kuva</div>

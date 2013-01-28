@@ -222,16 +222,17 @@ class dgs_model {
 		}
 	}
 
-	public function createScore($score = null)
+	public function createScore($hole_id = null, $score = null)
 	{
-		if($score == null) {
+		if($hole_id == null OR $score == null) {
 			return false;
 		}
 
-		$qu = "INSERT INTO score (scoresheet_id, score, createtime)
+		$qu = "INSERT INTO score (scoresheet_id, score, hole_id, createtime)
 				VALUES (
 					{$_SESSION['scoresheet_id']},
 					$score,
+					$hole_id,
 					now()
 				)";
 
@@ -275,6 +276,36 @@ class dgs_model {
 		$_SESSION['oncourse'] = $cid;
 
 		return true;
+	}
+
+	public function userinfo()
+	{
+		$uid = $_SESSION['uid'];
+
+		if($uid == '') {
+			return false;
+		}
+
+		# total rounds
+		$row = $this->db->fetchRow("SELECT count(*) rounds FROM scoresheet WHERE user_id = {$uid}");
+		$data['stats']['rounds'] = $row['rounds'];
+
+		# total throws
+		$row = $this->db->fetchRow("SELECT sum(score) throws, count(*) holes FROM scoresheet JOIN score ON (score.scoresheet_id = scoresheet.id) WHERE user_id = {$uid} GROUP BY user_id");
+		$data['stats']['throws'] = $row['throws'];
+		$data['stats']['holes'] = $row['holes'];
+
+		$data['stats']['avg'] = round($row['throws'] / $row['holes'],2);
+
+		$row = $this->db->fetchRow("SELECT count(*) throws, sum(hole.par / score.score) rate
+									FROM scoresheet
+									JOIN score ON (score.scoresheet_id = scoresheet.id)
+									JOIN hole ON (score.hole_id = hole.id)
+									WHERE user_id = {$uid}");
+
+		$data['stats']['skill'] = round($row['rate'] / $row['throws'] * 100, 2) .' %';
+
+		return $data;
 	}
 
 }

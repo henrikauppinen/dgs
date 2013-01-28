@@ -1,5 +1,5 @@
 <div data-role="page">
-	<div data-role="header"> 
+	<div data-role="header" data-theme="b" data-position="fixed"> 
 		<h1><?php echo $data['pagetitle'] ?></h1> 
 	</div>
 	<div data-role="content">
@@ -18,6 +18,7 @@
 			</fieldset>
 
 			<input type="submit" value="Continue" />
+			<input type="hidden" name="hole" value="<?php echo $data['hole']['id'] ?>" />
 			
 		</form>
 	</div>

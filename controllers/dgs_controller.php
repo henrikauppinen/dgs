@@ -156,14 +156,15 @@ class dgs_controller extends controller {
 
 		$cid = $_SESSION['oncourse'];
 
+		$hole_id = param('hole');
 		$score = param('score');
 
 		if(!(isset($_SESSION['scoresheet_id']))) {
 			$this->model->createScoresheet();
 		}
 
-		if($score != '') {
-			$this->model->createScore($score);
+		if($hole_id != '' && $score != '') {
+			$this->model->createScore($hole_id, $score);
 			$_SESSION['last_hole_no'] = $_SESSION['last_hole_no'] + 1;
 		}
 
@@ -174,6 +175,9 @@ class dgs_controller extends controller {
 			$data['totalscore'] = $this->model->currentTotalScore();
 
 			$data['course'] = $this->model->getCourseData($_SESSION['oncourse']);
+
+			unset($_SESSION['scoresheet_id']);
+			unset($_SESSION['last_hole_no']);
 
 			$this->view('coursecompleted', $data);
 		}
@@ -200,5 +204,13 @@ class dgs_controller extends controller {
 	{
 		unset($_SESSION["logged"]);
 		header("Location: index.php");
+	}
+
+	public function profile()
+	{
+
+		$data = $this->model->userinfo();
+
+		$this->view('profile', $data);
 	}
 }
