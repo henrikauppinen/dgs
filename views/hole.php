@@ -25,4 +25,5 @@
 		?>
 		<a href="?p=hole&f=del" data-role="button">Delete hole</a>
 	</div>
+	<?php include 'views/_footernav.php'; ?>
 </div>

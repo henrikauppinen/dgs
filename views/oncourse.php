@@ -8,10 +8,10 @@
 				<legend>Score</legend>
 				<?php
 
-				foreach($data['score_select_list'] as $key => $sel) {
+				foreach($data['score_select'] as $sel) {
 					?>
-					<input type="radio" name="score" id="radio-choice-<?php echo $key ?>" value="<?php echo $key ?>" />
-					<label for="radio-choice-<?php echo $key ?>"><?php echo $sel ?></label>
+					<input type="radio" name="score" id="radio-choice-<?php echo $sel ?>" value="<?php echo $sel ?>" />
+					<label for="radio-choice-<?php echo $sel ?>"><?php echo $sel ?></label>
 					<?php
 				}
 			?>

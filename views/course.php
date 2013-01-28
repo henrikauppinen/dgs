@@ -50,4 +50,5 @@
 			</form>
 		</div>
 	</div>
+	<?php include 'views/_footernav.php'; ?>
 </div>

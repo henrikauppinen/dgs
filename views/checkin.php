@@ -1,12 +1,7 @@
 <div data-role="page">
-	<div data-role="header">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#">One</a></li>
-				<li><a href="#">Two</a></li>
-				<li><a href="#">Three</a></li>
-			</ul>
-		</div>
+	<div data-role="header" data-position="fixed">
+		<h1>Select course</h1>
+		<a data-role="button" data-rel="back" data-icon="delete">Close</a>
 	</div>
 
 	<div data-role="content">
@@ -21,5 +16,5 @@
 			} ?>
 		</ul>
 	</div>
-	<?php include 'views/_footernav.php'; ?>
+	<?php # include 'views/_footernav.php'; ?>
 </div>

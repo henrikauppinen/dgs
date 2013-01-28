@@ -23,5 +23,8 @@
 				<p>In 22/1/2013 12:18</p>
 			</li>
 		</ul>
+		<div>
+			<a href="?p=poolarea" data-role="button">Close</a>
 	</div>
+	<?php include 'views/_footernav.php'; ?>
 </div>

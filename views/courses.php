@@ -2,7 +2,7 @@
 	<div data-role="header" data-position="fixed">
 		
 		<h1><?php echo $data['pagetitle'] ?></h1> 
-		<a href="?p=frontpage" data-icon="home" class="ui-btn-right">Home</a>
+		<a href="?p=checkin" data-icon="check" class="ui-btn-right">Check in</a>
 	</div>
 	<div data-role="content">
 		<?php
@@ -36,4 +36,5 @@
 			</form>
 		</div>
 	</div>
+	<?php include 'views/_footernav.php'; ?>
 </div>

@@ -132,10 +132,23 @@ class dgs_controller extends controller {
 		if($cid != '') {
 			$this->model->checkIn($cid);
 		}
+		elseif(isset($_SESSION['oncourse'])) {
+			$cid = $_SESSION['oncourse'];
+		}
 
 		$data['course'] = $this->model->getCourseData($cid);
 
 		$this->view('poolarea', $data);
+	}
+
+	public function fixscore()
+	{
+		$hole_no = param('hole');
+
+		$data = $this->model->getScore($hole_no);
+
+		$this->view('fixscore', $data);
+
 	}
 
 	public function oncourse()
@@ -166,10 +179,10 @@ class dgs_controller extends controller {
 		}
 		else {
 
-			$data['pagetitle'] =  $data['hole']['name'].' '.$data['hole']['sort'];
+			$data['pagetitle'] =  $data['hole']['sort'].': '.$data['hole']['name'];
 
 			for($i=1; $i<7; $i++) {
-				$data['score_select_list'][] = $i - $data['hole']['par'];
+				$data['score_select'][] = $i;
 			}
 
 			$this->view('oncourse', $data);
@@ -185,7 +198,7 @@ class dgs_controller extends controller {
 
 	public function logout()
 	{
-		unset($_SESSION["logged"]);  // where $_SESSION["nome"] is your own variable. if you do not have one use only this as follow **session_unset();**
+		unset($_SESSION["logged"]);
 		header("Location: index.php");
 	}
 }

@@ -77,9 +77,11 @@ class dgs_model {
 		if(mysql_num_rows($re) > 0) {
 			while($row = mysql_fetch_assoc($re)) {
 				$data['holes'][] = $row;
+				$totaldist = $totaldist + $row['distance'];
 			}
 		}
 
+		$data['totaldistance'] = $totaldist;
 
 		return $data;
 	}
