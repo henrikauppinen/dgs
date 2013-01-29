@@ -1,12 +1,14 @@
 <div data-role="page">
-	<div data-role="header" data-position="fixed"> 
-		<a href="?p=courses&cid=<?php echo $data['course']['id'] ?>" data-icon="arrow-l">Back</a>
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<a href="courses" data-icon="arrow-l" data-rel="back">Back</a>
 		<h1><?php echo $data['pagetitle'] ?></h1>
-		<a href="?p=frontpage" data-icon="home">Home</a>
+		<a href="editcourse&cid=<?php echo $data['course']['id'] ?>" data-icon="gear">Edit</a>
 	</div>
 
 	<div data-role="content"> 
 		<h2><?php echo $data['course']['name'] ?></h2>
+		<p><?php echo $data['course']['streetaddress']." ".$data['course']['postcode']." ".$data['course']['city'] ?></p>
+		<p>Rating: <?php echo $data['course']['rating'] ?></p>
 
 		<?php
 

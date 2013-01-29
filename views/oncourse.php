@@ -3,7 +3,7 @@
 		<h1><?php echo $data['pagetitle'] ?></h1> 
 	</div>
 	<div data-role="content">
-		<form method="post" action="dgs.php?p=oncourse">
+		<form method="post" action="index.php?p=oncourse">
 			<fieldset data-role="controlgroup">
 				<legend>Score</legend>
 				<?php

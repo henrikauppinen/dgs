@@ -26,7 +26,7 @@ $navbar[] = array('href' => 'profile', 'name' => 'Profile', 'icon' => 'grid');
 	<div data-role="navbar">
 		<ul>
 			<?php foreach($navbar as $button) { ?>
-				<li><a href="dgs.php?p=<?php echo $button['href'] ?>" data-icon="<?php echo $button['icon'] ?>"><?php echo $button['name'] ?></a></li>
+				<li><a href="<?php echo $button['href'] ?>" data-icon="<?php echo $button['icon'] ?>"><?php echo $button['name'] ?></a></li>
 			<?php } ?>
 		</ul>
 	</div>

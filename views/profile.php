@@ -2,7 +2,7 @@
 
 	<div data-role="header" data-theme="b">
 		<h1>Profile</h1>
-		<a href="?p=checkin" data-icon="check" class="ui-btn-right">Check in</a>
+		<a href="checkin" data-icon="check" class="ui-btn-right">Check in</a>
 	</div>
 	<div class="ui-grid-c profile_top_stats">
 		<div class="ui-block-a"><span><strong>Rounds</strong></span><span><?php echo $data['stats']['rounds'] ?></span></div>

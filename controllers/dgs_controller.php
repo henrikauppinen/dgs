@@ -2,10 +2,13 @@
 
 class dgs_controller extends controller {
 	
+
+	public $ratings = array('A1','A2','A3','B1','B2','B3','C1','C2','C3');
+
 	public function __construct()
 	{
 
-		$this->model = new dgs_model();		
+		$this->model = new dgs_model();
 		
 		$page = param('p');
 
@@ -13,7 +16,7 @@ class dgs_controller extends controller {
 			$page = 'frontpage';
 		}
 
-		$this->$page();	
+		$this->$page();
 	}
 
 	public function frontpage()
@@ -34,9 +37,13 @@ class dgs_controller extends controller {
 		if($func == 'create')
 		{
 			# create new course
-			$name = param('name');
-
-			$data['message'] = $this->model->createCourse($name);
+			$newcourse['name'] = param('name');
+			$newcourse['streetaddress'] = param('streetaddress');
+			$newcourse['postcode'] = param('postcode');
+			$newcourse['city'] = param('city');
+			$newcourse['rating'] = param('rating');
+			echo "<pre>";print_r($newcourse);die;
+			$data['message'] = $this->model->createCourse($newcourse);
 		}
 		elseif($func == 'delete')
 		{
@@ -74,8 +81,19 @@ class dgs_controller extends controller {
 
 			$data['message'] = $this->model->createHole($course_id, $par, $name, $distance);
 		}
+		elseif($func == 'edit') {
+			$coursedata['id'] = $course_id;
+			$coursedata['name'] = param('name');
+			$coursedata['streetaddress'] = param('streetaddress');
+			$coursedata['postcode'] = param('postcode');
+			$coursedata['city'] = param('city');
+			$coursedata['rating'] = param('rating');
+
+			$data['message'] = $this->model->updateCourse($coursedata);
+		}
 
 		$data['course'] = $this->model->getCourseData($course_id);
+		$data['ratings'] = $this->ratings;
 
 		if($data['course'] == false) {
 			$data['message'] == 'Error loading course data';
@@ -83,6 +101,38 @@ class dgs_controller extends controller {
 		}
 
 		$this->view('course', $data);
+	}
+
+	public function editcourse()
+	{
+		$data['pagetitle'] = 'Edit';
+		$data['page'] = 'editcourse';
+
+		$course_id = param('cid');
+
+		$func = param('f');
+
+
+		if($course_id == null or $course_id == 0) {
+			echo "error";
+			die;
+		}
+
+		if($func == 'delete') {
+			$this->model->deleteCourse($course_id);
+			header('Location: index.php?p=courses');
+			die;
+		}
+
+
+
+		$data['course'] = $this->model->getCourseData($course_id);
+		$data['usagecount'] = $this->model->courseUsageCount($course_id);
+		
+		$data['ratings'] = $this->ratings;
+
+		$this->view('editcourse', $data);
+
 	}
 
 	public function hole()

@@ -1,5 +1,7 @@
 <?php
 
+header('Content-type:text/html;Charset=utf-8');
+
 require_once 'models/db_model.php';
 require_once 'models/login_model.php';
 require_once 'controllers/controller.php';

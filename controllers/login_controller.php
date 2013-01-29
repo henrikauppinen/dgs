@@ -33,7 +33,7 @@ class login_controller extends controller {
 			$auth = $this->model->login($email, $passwd, $token);
 
 			if($auth['status'] == true) {
-				header("Location: dgs.php?p=frontpage");
+				header("Location: index.php?p=frontpage");
 			}
 			elseif($auth['status'] == false) {
 				$data['message'] = $auth['message'];

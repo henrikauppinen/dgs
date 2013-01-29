@@ -11,13 +11,36 @@ class dgs_model {
 	}
 
 
-	public function createCourse($name = null)
+	public function createCourse($course = null)
 	{
-		if($name == null OR $name == '') {
+		if($course == null or $course['name'] == '') {
 			return false;
 		}
 
-		$qu = "INSERT INTO course (name, createtime) VALUES ('{$name}', now())";
+		$qu = "INSERT INTO course (name, streetaddress, postcode, city, rating, createtime)
+				VALUES ('{$course['name']}', '{$course['streetaddress']}', '{$course['postcode']}', '{$course['city']}', '{$course['rating']}', now())";
+
+		$re = $this->db->query($qu);
+
+		return true;
+	}
+
+	public function updateCourse($course = null)
+	{
+		if($course == null) {
+			return false;
+		}
+
+		$qu = "UPDATE
+					course
+				SET
+					name = '{$course['name']}',
+					streetaddress = '{$course['streetaddress']}',
+					postcode = '{$course['postcode']}',
+					city = '{$course['city']}',
+					rating = '{$course['rating']}'
+				WHERE
+					id = {$course['id']}";
 
 		$re = $this->db->query($qu);
 
@@ -31,11 +54,30 @@ class dgs_model {
 			return false;
 		}
 
+		# check if course has been used
+		
+		$usage = $this->courseUsageCount($course_id);
+
+		if($usage > 0) {
+			return false;
+		}
+
 		$this->db->query("DELETE FROM hole WHERE course_id = {$course_id}");
 		$this->db->query("DELETE FROM course WHERE id = {$course_id}");
 
 		return true;
 
+	}
+
+	public function courseUsageCount($course_id = null)
+	{
+		if($course_id == null) {
+			return false;
+		}
+
+		$row = $this->db->fetchRow("SELECT count(*) usecount FROM scoresheet WHERE course_id = {$course_id}");
+
+		return $row['usecount'];
 	}
 
 	public function listCourses()
@@ -79,6 +121,9 @@ class dgs_model {
 				$data['holes'][] = $row;
 				$totaldist = $totaldist + $row['distance'];
 			}
+		}
+		else {
+			$totaldist = '-';
 		}
 
 		$data['totaldistance'] = $totaldist;

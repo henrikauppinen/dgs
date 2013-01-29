@@ -19,12 +19,12 @@ $("#launchpage").live('pageinit', function() {
 				}
 			},
 			complete: function() {
-				$.mobile.changePage('dgs.php');
+				$.mobile.changePage('index.php');
 			}
 		});	
 	}
 	else {
-		$.mobile.changePage('dgs.php');
+		$.mobile.changePage('index.php');
 	}
 	
 });
@@ -40,4 +40,19 @@ $("#login").live('pageinit', function() {
 
 	});
 
+});
+
+/* edit course save button */
+$('#editcourse').live('pageinit', function() {
+	$('#editcoursesave').on('vclick', function(e) {
+			
+		e.preventDefault();
+
+		$('#editcourseform').submit();
+		
+	});
+
+	$('#deletecoursebutton').on('vclick', function() {
+		$('#confirmdelete').popup('open');
+	});
 });

@@ -16,7 +16,12 @@ CREATE TABLE user (
 CREATE TABLE course (
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(120) NOT NULL,
-	address VARCHAR(360),
+	streetaddress VARCHAR(360),
+	postcode VARCHAR(10),
+	city VARCHAR(100),
+	country VARCHAR(100),
+	coord_lat INT,
+	coord_long INT,
 	createtime DATETIME,
 	PRIMARY KEY(id)
 	);

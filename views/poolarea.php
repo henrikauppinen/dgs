@@ -13,7 +13,7 @@
 			<p><?php echo $data['course']['totaldistance']; ?> total distance (m)</p>
 			
 			<div data-type="horizontal" data-role="controlgroup">
-				<a href="dgs.php?p=oncourse" data-role="button">Start round!</a>
+				<a href="index.php?p=oncourse" data-role="button">Start round!</a>
 				<a href="#" data-role="button" data-icon="star">Fav</a>
 			</div>
 		</div>
