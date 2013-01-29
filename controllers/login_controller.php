@@ -7,7 +7,7 @@ class login_controller extends controller {
 		
 		$this->model = new login_model();
 
-		$page = param('p');
+		$page = param('f');
 
 		if($page == false) {
 			# default fallback
@@ -33,7 +33,7 @@ class login_controller extends controller {
 			$auth = $this->model->login($email, $passwd, $token);
 
 			if($auth['status'] == true) {
-				header("Location: index.php?p=frontpage");
+				header("Location: dgs.php?p=dgs&f=frontpage");
 			}
 			elseif($auth['status'] == false) {
 				$data['message'] = $auth['message'];

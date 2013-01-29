@@ -6,19 +6,19 @@ $navbar = array();
 
 if(isset($_SESSION['oncourse'])) {
 	if(isset($_SESSION['last_hole_no'])) {
-		$navbar[] = array('href' => 'oncourse', 'name' => 'Session!', 'icon' => 'info');
+		$navbar[] = array('href' => 'dgs.php?p=dgs&f=oncourse', 'name' => 'Session!', 'icon' => 'alert');
 	}
 	else {
-		$navbar[] = array('href' => 'poolarea', 'name' => 'Session!', 'icon' => 'info');
+		$navbar[] = array('href' => 'dgs.php?p=dgs&f=poolarea', 'name' => 'Location', 'icon' => 'info');
 	
 	}
 }
 else {
-	$navbar[] = array('href' => 'frontpage', 'name' => 'Friends', 'icon' => 'info');
+	$navbar[] = array('href' => 'dgs.php', 'name' => 'Friends', 'icon' => 'info');
 }
 
-$navbar[] = array('href' => 'courses', 'name' => 'Courses', 'icon' => 'grid');
-$navbar[] = array('href' => 'profile', 'name' => 'Profile', 'icon' => 'grid');
+$navbar[] = array('href' => 'dgs.php?p=courses', 'name' => 'Courses', 'icon' => 'grid');
+$navbar[] = array('href' => 'dgs.php?p=profile', 'name' => 'Profile', 'icon' => 'grid');
 
 ?>
 

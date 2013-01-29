@@ -1,12 +1,11 @@
 // DGS App javascript
 
-
 $("#launchpage").live('pageinit', function() {
 	// initial App load
 
 	// session
 	var tokenVal = localStorage.getItem('token');
-
+	alert(tokenVal);
 	if(tokenVal != null) {
 		$.ajax({
 			url: 'session.php',
@@ -19,12 +18,12 @@ $("#launchpage").live('pageinit', function() {
 				}
 			},
 			complete: function() {
-				$.mobile.changePage('index.php');
+				$.mobile.changePage('dgs.php');
 			}
 		});	
 	}
 	else {
-		$.mobile.changePage('index.php');
+		$.mobile.changePage('dgs.php');
 	}
 	
 });
@@ -53,6 +52,21 @@ $('#editcourse').live('pageinit', function() {
 	});
 
 	$('#deletecoursebutton').on('vclick', function() {
+		$('#confirmdelete').popup('open');
+	});
+});
+
+/* edit course save button */
+$('#edithole').live('pageinit', function() {
+	$('#editholesave').on('vclick', function(e) {
+			
+		e.preventDefault();
+
+		$('#editholeform').submit();
+		
+	});
+
+	$('#deleteholebutton').on('vclick', function() {
 		$('#confirmdelete').popup('open');
 	});
 });

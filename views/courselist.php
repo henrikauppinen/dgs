@@ -2,7 +2,7 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		
 		<h1><?php echo $data['pagetitle'] ?></h1> 
-		<a href="?p=checkin" data-icon="check" class="ui-btn-right">Check in</a>
+		<a href="dgs.php?p=dgs&f=checkin" data-icon="check" class="ui-btn-right">Check in</a>
 	</div>
 	<div data-role="content">
 		<?php
@@ -18,7 +18,7 @@
 
 			foreach($data['courselist'] as $course) {
 				?>
-				<li><a href="index.php?p=course&cid=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a></li>
+				<li><a href="dgs.php?p=courses&f=course&cid=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a></li>
 				<?php
 			} ?>
 			</ul>
@@ -28,7 +28,7 @@
 			
 		<div data-role="collapsible" data-content-theme="d">
 			<h3>Create new course</h3>
-			<form method="post" action="index.php?p=courses">
+			<form method="post" action="dgs.php?p=courses&f=create">
 				
 				<label for="name">Name</label>
 				<input name="name" type="text" value="" data-clear-btn="true" />
@@ -55,7 +55,7 @@
 					<option value="C3">C3</option>
 				</select>
 
-				<input type="submit" value="Add course" />
+				<input type="submit" value="Add course" data-theme="b" />
 				<input type="hidden" name="f" value="create" />
 			</form>
 		</div>

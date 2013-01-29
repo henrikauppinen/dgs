@@ -2,12 +2,12 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		<a data-role="button" href="?p=course&cid=<?php echo $data['course']['id'] ?>">Close</a>
 		<h1>Edit</h1>
-		<a data-role="button" href="javasript(0)" id="editcoursesave">Save</a>
+		<a data-role="button" href="#" id="editcoursesave">Save</a>
 	</div>
 
 	<div data-role="content">
 
-		<form method="post" action="index.php?p=course&f=edit" id="editcourseform" data-ajax="false">
+		<form method="post" action="dgs.php?p=courses&f=update" id="editcourseform" data-ajax="false">
 			<label for="name">Name</label>
 			<input name="name" type="text" value="<?php echo $data['course']['name'] ?>" data-clear-btn="true" />
 
@@ -52,7 +52,7 @@
 		</div>
 		<div class="ui-content">
 			<p>This action cannot be cancelled?</p>
-			<a data-role="button" href="?p=course&f=delete&cid=<?php echo $data['course']['id'] ?>" data-theme="f">Confirm</a>
+			<a data-role="button" href="?p=courses&f=delete&cid=<?php echo $data['course']['id'] ?>" data-theme="f">Confirm</a>
 			<a data-role="button" href="#" data-rel="back">Cancel</a>
 		</div>
 	</div>

@@ -147,8 +147,12 @@ class dgs_model {
 		return TRUE;
 	}
 
-	public function editHole($hole_id, $par = null, $name = null, $distance = null)
+	public function editHole($hole_id, $name = null, $par = null, $distance = null)
 	{
+		if($hole_id == null) {
+			return false;
+		}
+
 		if($par != null) {
 			$par = "par = $par,";
 		}
@@ -166,6 +170,7 @@ class dgs_model {
 					$name
 					$distance
 					updatetime = now()
+				WHERE id = {$hole_id}
 				";
 
 		$re = $this->db->query($qu);

@@ -5,7 +5,7 @@
 			echo "<p>{$data['message']}</p>";
 		}
 		?>
-		<form id="loginform" method="post" action="?p=login">
+		<form id="loginform" method="post" action="dgs.php?p=login" data-ajax="false">
 			<label for="email">Email address</label>
 			<input name="email" type="text" />
 			<label for="passwd">Password</label>
@@ -14,7 +14,7 @@
 			<input type="hidden" name="token" id="tokenid" value="<?php echo session_id(); ?>" />
 		</form>
 
-		<a href="index.php?p=createaccount" data-role="button">Create account</a>
+		<a href="dgs.php?p=login&f=createaccount" data-role="button">Create account</a>
 
 	</div>
 </div>

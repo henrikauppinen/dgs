@@ -2,6 +2,8 @@
 
 class controller {
 	
+	public $page;
+
 	public function view ($view, $data = null)
 	{
 		# detect ajax and add content accordingly

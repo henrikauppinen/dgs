@@ -1,8 +1,8 @@
-<div data-role="page">
+<div data-role="page" id="course">
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<a href="courses" data-icon="arrow-l" data-rel="back">Back</a>
+		<a href="dgs.php?p=courses" data-icon="arrow-l">Back</a>
 		<h1><?php echo $data['pagetitle'] ?></h1>
-		<a href="editcourse&cid=<?php echo $data['course']['id'] ?>" data-icon="gear">Edit</a>
+		<a href="dgs.php?p=courses&f=editcourse&cid=<?php echo $data['course']['id'] ?>" data-icon="gear">Edit</a>
 	</div>
 
 	<div data-role="content"> 
@@ -22,7 +22,7 @@
 			foreach($data['course']['holes'] as $hole) {
 				?>
 				<li data-icon="edit">
-					<a href="?p=hole&lid=<?php echo $hole['id'] ?>">
+					<a href="?p=courses&f=hole&id=<?php echo $hole['id'] ?>">
 						<h3><?php echo $hole['sort'].". ".$hole['name'] ?></h3>
 						<p>Par: <?php echo $hole['par'] ?></p>
 						<p>Distance: <?php echo $hole['distance'] ?></p>
@@ -40,7 +40,7 @@
 		?>
 		<div data-role="collapsible" data-content-theme="d">
 			<h3>Create new hole</h3>
-			<form method="POST" action="?p=course&cid=<?php echo $data['course']['id'] ?>">
+			<form method="POST" action="?p=courses&f=addhole&cid=<?php echo $data['course']['id'] ?>">
 				<label for="name">Name</label>
 				<input name="name" type="text" />
 				<label for="par">Par</label>

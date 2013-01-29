@@ -8,7 +8,7 @@
 			echo "<p>{$data['message']}</p>";
 		}
 		?>
-		<form id="login" method="post" action="index.php?p=createaccount">
+		<form id="login" method="post" action="dgs.php?p=createaccount">
 			<label for="email">Email address</label>
 			<input name="email" type="text" />
 			<label for="passwd">Password</label>
