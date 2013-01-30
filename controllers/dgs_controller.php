@@ -38,7 +38,7 @@ class dgs_controller extends controller {
 
 	public function poolarea()
 	{
-		$data['pagetitle'] = 'Pooling area';
+		$data['pagetitle'] = 'Course';
 		$data['page'] = 'poolarea';
 
 		$cid = param('cid');
@@ -52,6 +52,8 @@ class dgs_controller extends controller {
 		}
 
 		$data['course'] = $this->model->getCourseData($cid);
+
+		$data['rounds'][] = $this->model->getLatestRound();
 
 		$this->view('poolarea', $data);
 	}

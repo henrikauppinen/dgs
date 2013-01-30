@@ -116,19 +116,63 @@ class dgs_model {
 
 		$re = $this->db->query("SELECT * FROM hole WHERE course_id = {$course_id}");
 
+		$totaldist = 0;
+
 		if(mysql_num_rows($re) > 0) {
 			while($row = mysql_fetch_assoc($re)) {
 				$data['holes'][] = $row;
 				$totaldist = $totaldist + $row['distance'];
 			}
 		}
-		else {
-			$totaldist = '-';
-		}
 
 		$data['totaldistance'] = $totaldist;
 
 		return $data;
+	}
+
+	public function getLatestRound()
+	{
+		$row = $this->db->fetchRow("SELECT id FROM scoresheet WHERE user_id = {$_SESSION['uid']} ORDER BY createtime DESC");
+
+		return $this->getScoresheetData($row['id']);
+
+	}
+
+	public function getScoresheetData($id = null)
+	{
+		if($id == null) {
+			return false;
+		}
+
+		$data = $this->db->fetchRow("SELECT * FROM scoresheet WHERE id = {$id}");
+
+		$row = $this->db->fetchRow("SELECT max(score.createtime) endtime, sum(score) totalscore, sum(hole.par) par
+									FROM score
+									JOIN hole ON (hole.id = score.hole_id)
+									WHERE scoresheet_id = {$id}");
+
+		$data['endtime'] = $row['endtime'];
+		
+		$start_date = new DateTime($data['createtime']);
+		$duration = $start_date->diff(new DateTime($row['endtime']));
+
+		$data['time'] = $duration->format('%i minutes %s seconds');
+		
+		$data['totalscore'] = $row['totalscore'];
+		$data['diffpar'] = $data['totalscore'] - $row['par'];
+
+		$re = $this->db->query("SELECT * FROM score WHERE scoresheet_id = {$id}");
+
+		if(mysql_num_rows($re) > 0) {
+			while($row = mysql_fetch_assoc($re)) {
+				$data['throws'][] = $row;
+			}
+		}
+
+
+
+		return $data;
+
 	}
 
 	public function createHole($course_id, $par, $name = null, $distance = null)

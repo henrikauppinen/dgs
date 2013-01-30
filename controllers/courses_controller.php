@@ -153,7 +153,7 @@ class courses_controller extends controller {
 		$par = param('par');
 		$distance = param('distance');
 
-		$data['message'] = $this->model->createHole($course_id, $par, $name, $distance);
+		$data['message'] = $this->model->createHole($this->course_id, $par, $name, $distance);
 
 		$this->course();
 

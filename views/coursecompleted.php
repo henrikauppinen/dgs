@@ -24,7 +24,8 @@
 			</li>
 		</ul>
 		<div>
-			<a href="?p=poolarea" data-role="button">Close</a>
+			<a href="?p=dgs&f=poolarea" data-role="button">Close</a>
 	</div>
+
 	<?php include 'views/_footernav.php'; ?>
 </div>

@@ -4,12 +4,18 @@
 		<h1><?php echo $data['pagetitle'] ?></h1>
 		<a href="dgs.php?p=courses&f=editcourse&cid=<?php echo $data['course']['id'] ?>" data-icon="gear">Edit</a>
 	</div>
+	<div class="head_content">
+		<p><?php echo $data['course']['name'] ?></p>
+	</div>
+	<div class="head_toolbar">
+		<div class="ui-grid-a">
+			<div class="ui-block-a"><span><?php echo $data['course']['streetaddress']."<br />".$data['course']['postcode']." ".$data['course']['city'] ?></span></div>
+			<div class="ui-block-b"><span><strong><?php echo $data['course']['rating'] ?></strong><br />Rating</span></div>
+		</div>
+		<a href="dgs.php?p=courses&f=editcourse&cid=<?php echo $data['course']['id'] ?>" data-icon="gear" data-mini="true" data-role="button" data-inline="true">Edit</a>
+	</div>
 
 	<div data-role="content"> 
-		<h2><?php echo $data['course']['name'] ?></h2>
-		<p><?php echo $data['course']['streetaddress']." ".$data['course']['postcode']." ".$data['course']['city'] ?></p>
-		<p>Rating: <?php echo $data['course']['rating'] ?></p>
-
 		<?php
 
 		if(!(isset($data['course']['holes']))) { ?>
@@ -21,7 +27,7 @@
 			<?php
 			foreach($data['course']['holes'] as $hole) {
 				?>
-				<li data-icon="edit">
+				<li data-icon="arrow-r">
 					<a href="?p=courses&f=hole&id=<?php echo $hole['id'] ?>">
 						<h3><?php echo $hole['sort'].". ".$hole['name'] ?></h3>
 						<p>Par: <?php echo $hole['par'] ?></p>
@@ -40,15 +46,23 @@
 		?>
 		<div data-role="collapsible" data-content-theme="d">
 			<h3>Create new hole</h3>
-			<form method="POST" action="?p=courses&f=addhole&cid=<?php echo $data['course']['id'] ?>">
+			<form method="post" action="?p=courses&f=addhole&cid=<?php echo $data['course']['id'] ?>">
 				<label for="name">Name</label>
 				<input name="name" type="text" />
-				<label for="par">Par</label>
-				<input type="range" name="par" value="3" min="2" max="7" />
+				
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<legend>Par</legend>
+					<input type="radio" name="par" id="par-3" value="3" checked="checked" />
+					<label for="par-3">3</label>
+					<input type="radio" name="par" id="par-4" value="4" />
+					<label for="par-4">4</label>
+					<input type="radio" name="par" id="par-5" value="5" />
+					<label for="par-5">5</label>
+				</fieldset>	
+
 				<label for="distance">Distance</label>
-				<input type="range" name="distance" value="60" min="25" max="300" data-highlight="true" />
+				<input type="text" name="distance" value="" />
 				<input type="submit" value="Add" />
-				<input type="hidden" name="f" value="add" />
 			</form>
 		</div>
 	</div>
