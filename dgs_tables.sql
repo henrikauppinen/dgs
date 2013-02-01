@@ -20,6 +20,7 @@ CREATE TABLE course (
 	postcode VARCHAR(10),
 	city VARCHAR(100),
 	country VARCHAR(100),
+	rating VARCHAR(2),
 	coord_lat INT,
 	coord_long INT,
 	createtime DATETIME,
@@ -61,3 +62,12 @@ CREATE TABLE score (
 	createtime DATETIME,
 	PRIMARY KEY(id)
 	);
+
+CREATE TABLE message (
+	id INT NOT NULL AUTO_INCREMENT,
+	content VARCHAR(200),
+	type INT NOT NULL,
+	link_id INT,
+	createtime DATETIME,
+	PRIMARY KEY(id)
+);

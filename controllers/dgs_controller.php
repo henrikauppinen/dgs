@@ -23,7 +23,18 @@ class dgs_controller extends controller {
 		$data['pagetitle'] = 'DGS alpha 0.1';
 		$data['page'] = 'frontpage';
 
+		$data['messages'] = $this->model->getMessages();
+
 		$this->view('frontpage',$data);
+	}
+
+	public function messages()
+	{
+		# messages subpage
+
+		$data = $this->model->getMessages();
+
+		$this->view('messages', $data);
 	}
 
 	public function checkin()
@@ -91,7 +102,11 @@ class dgs_controller extends controller {
 
 			$data['totalscore'] = $this->model->currentTotalScore();
 
+
 			$data['course'] = $this->model->getCourseData($_SESSION['oncourse']);
+
+
+			$this->model->createMessage(0, "User completed course @ {$data['course']['name']} with total score {$data['totalscore']}", $_SESSION['scoresheet_id']);
 
 			unset($_SESSION['scoresheet_id']);
 			unset($_SESSION['last_hole_no']);
@@ -121,6 +136,18 @@ class dgs_controller extends controller {
 	{
 		unset($_SESSION["logged"]);
 		header("Location: dgs.php");
+	}
+
+	public function scoresheet()
+	{	
+		$data['pagetitle'] = 'Scoresheet';
+		$data['page'] = 'scoresheet';
+
+		$scoresheet_id = param('id');
+
+		$data['scoresheet'] = $this->model->getScoresheetData($scoresheet_id);
+
+		$this->view('scoresheet', $data);
 	}
 	
 }

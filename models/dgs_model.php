@@ -402,4 +402,26 @@ class dgs_model {
 		return $data;
 	}
 
+
+	public function getMessages()
+	{
+		$re = $this->db->query("SELECT * FROM message LIMIT 5");
+
+		while($row = mysql_fetch_assoc($re)) {
+			if($row['type'] == 0) {
+				$row['href'] = "p=dgs&f=scoresheet&id={$row['link_id']}";
+				$data[] = $row;
+			}
+		}
+
+		return $data;
+	}
+
+	public function createMessage($type, $message, $link_id = null)
+	{
+		$this->db->query("INSERT INTO message (content, type, link_id, createtime) VALUES ('{$message}', '{$type}', $link_id, now())");
+
+		return true;
+	}
+
 }
