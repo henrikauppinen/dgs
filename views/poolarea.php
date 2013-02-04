@@ -1,7 +1,14 @@
 <div data-role="page" id="poolarea">
 	<div data-role="header" data-theme="b" data-position="fixed">
 		<h1><?php echo $data['pagetitle'] ?></h1>
-		<a href="?p=dgs&f=checkin" data-icon="gear" class="ui-btn-right">Options</a>
+		<a href="#menupopup" data-rel="popup" data-icon="gear" class="ui-btn-right">Options</a>
+	</div>
+
+	<div data-role="popup" id="menupopup">
+		<ul data-role="listview">
+			<li><a href="?p=dgs&f=checkin" data-icon="gear" class="ui-btn-right">Change location</a></li>
+			<li><a href="?p=dgs&f=checkout" data-icon="gear" class="ui-btn-right">Check out</a></li>
+		</ul>
 	</div>
 
 	<div class="course_img">kuva</div>

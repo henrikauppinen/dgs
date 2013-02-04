@@ -9,6 +9,10 @@ class login_controller extends controller {
 
 		$page = param('f');
 
+		if(!(method_exists('login_controller', $page))) {
+			$page = 'login';
+		}
+
 		if($page == false) {
 			# default fallback
 			$page = 'login';

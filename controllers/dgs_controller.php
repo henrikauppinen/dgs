@@ -115,6 +115,10 @@ class dgs_controller extends controller {
 		}
 		else {
 
+			$data['holestats'] = $this->model->getHoleStats($data['hole']['id']);
+
+			$data['scoresheet'] = $this->model->getScoresheetData($_SESSION['scoresheet_id']);
+
 			$data['pagetitle'] =  $data['hole']['sort'].': '.$data['hole']['name'];
 
 			for($i=1; $i<7; $i++) {

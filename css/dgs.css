@@ -39,20 +39,32 @@ div.head_toolbar {
 	width: 100%;
 	background: #ffffff;
 	border-bottom: 1px solid #cccccc;
+
 }
+
+div.head_toolbar span {
+	color: #696969;
+	font-size: 0.8em;
+}
+
+div.head_toolbar span b {
+	color: #000;
+	font-size: 1em;
+}
+
 div.head_toolbar div.ui-grid-a {
 	height: 100%;
 	height: 3.1em;
 	border-bottom: 1px solid #cccccc;
 }
 
-div.head_toolbar div.ui-block-b, div.head_toolbar div.ui-block-a {
-	padding: 0.7em;
+div.head_toolbar div.ui-block-b, div.head_toolbar div.ui-block-a,  div.head_toolbar div.ui-block-c, div.head_toolbar div.ui-block-d {
+	padding: 0.4em;
 	height: 100%;
 	font-size: 0.8em;
 }
 
-div.head_toolbar div.ui-block-b {
+div.head_toolbar div.ui-block-b, div.head_toolbar div.ui-block-c, div.head_toolbar div.ui-block-d {
 	border-left: 1px solid #cccccc;
 	padding-left: 0.8em;
 }

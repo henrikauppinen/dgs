@@ -38,6 +38,10 @@ class db_model {
 
 		$re = $this->query($query);
 
+		if(mysql_num_rows($re) == 0) {
+			return null;
+		}
+
 		$data = mysql_fetch_assoc($re);
 
 		return $data;

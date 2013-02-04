@@ -304,6 +304,24 @@ class dgs_model {
 		return $data[0];
 	}
 
+	public function getHoleStats($hole_id = null)
+	{
+		if($hole_id == null) {
+			return false;
+		}
+
+		$row = $this->db->fetchRow("SELECT min(score) bestscore
+									FROM score
+									JOIN scoresheet ON (scoresheet.id = score.scoresheet_id) 
+									WHERE scoresheet.user_id = {$_SESSION['uid']} AND score.hole_id = $hole_id");
+
+		if($row == null) {
+			$row['bestscore'] = '-';
+		}
+
+		return $row;
+	}
+
 	public function deleteScoresheet($scoresheet_id)
 	{
 		# ...

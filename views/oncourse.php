@@ -1,8 +1,24 @@
 <div data-role="page">
 	<div data-role="header" data-theme="b" data-position="fixed"> 
 		<h1><?php echo $data['pagetitle'] ?></h1>
-		<a href="?p=dgs&f=checkin" data-icon="gear" class="ui-btn-right">Options</a>
+		<a href="#menupopup" data-rel="popup" data-icon="gear" class="ui-btn-right">Options</a>
 	</div>
+
+	<div data-role="popup" id="menupopup">
+		<ul data-role="listview">
+			<li><a href="#">End round</a></li>
+			<li><a href="dgs.php?p=dgs&f=checkin">Change location</a></li>
+			<li><a href="#">Check out</a></li>
+		</ul>
+	</div>
+
+	<div class="ui-grid-c head_toolbar">
+		<div class="ui-block-a"><span><b><?php echo $data['hole']['distance'] ?> m</b><br />DISTANCE</span></div>
+		<div class="ui-block-b"><span><b><?php echo $data['holestats']['bestscore']; ?></b><br />BEST</span></div>
+		<div class="ui-block-c"><span><b><?php echo $data['scoresheet']['totalscore']; ?></b><br />TOTAL</span></div>
+		<div class="ui-block-d"><span><b><?php echo $data['scoresheet']['diffpar']; ?></b><br />PAR DIFF</span></div>
+	</div>
+
 	<div data-role="content">
 		<form method="post" action="dgs.php?p=dgs&f=oncourse">
 			<fieldset data-role="controlgroup">
