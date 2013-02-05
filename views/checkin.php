@@ -4,8 +4,11 @@
 		<a href="#" data-role="button" data-rel="back" data-icon="delete">Close</a>
 	</div>
 
+	<div id="map_canvas"></div>
+
 	<div data-role="content">
-		<ul data-role="listview" data-filter="true">
+		
+		<ul data-role="listview">
 			<?php
 			foreach($data['courses'] as $course) {
 				?>

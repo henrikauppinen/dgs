@@ -42,7 +42,12 @@ class login_model {
 
 	public function logout()
 	{
-		# code...
+		$_SESSION = array();
+
+		// Finally, destroy the session.
+		session_destroy();
+
+		header('Location: dgs.php?p=login');
 	}
 
 	public function createAccount($email, $passwd, $name = '')

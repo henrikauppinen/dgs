@@ -398,6 +398,8 @@ class dgs_model {
 			return false;
 		}
 
+		$data['user'] = $this->db->fetchRow("SELECT name, email FROM user WHERE id = '{$uid}'");
+
 		# total rounds
 		$row = $this->db->fetchRow("SELECT count(*) rounds FROM scoresheet WHERE user_id = {$uid}");
 		$data['stats']['rounds'] = $row['rounds'];
