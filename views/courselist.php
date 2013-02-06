@@ -2,8 +2,9 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		
 		<h1><?php echo $data['pagetitle'] ?></h1> 
-		<a href="dgs.php?p=dgs&f=checkin" data-icon="check" class="ui-btn-right">Check in</a>
+
 	</div>
+	
 	<div data-role="content">
 		<?php
 		if(count($data['courselist']) == 0) {

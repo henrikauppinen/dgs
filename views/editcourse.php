@@ -1,12 +1,12 @@
 <div data-role="page" id="editcourse">
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<a data-role="button" href="?p=course&cid=<?php echo $data['course']['id'] ?>">Close</a>
+		<a data-role="button" href="dgs.php?p=courses&f=course&cid=<?php echo $data['course']['id'] ?>">Close</a>
 		<h1>Edit</h1>
 		<a data-role="button" href="#" id="editcoursesave">Save</a>
 	</div>
 
 	<div data-role="content">
-
+		<div class="msg">
 		<form method="post" action="dgs.php?p=courses&f=update" id="editcourseform" data-ajax="false">
 			<label for="name">Name</label>
 			<input name="name" type="text" value="<?php echo $data['course']['name'] ?>" data-clear-btn="true" />
@@ -44,11 +44,12 @@
 			<a data-role="button" data-theme="f" href="#" id="deletecoursebutton">Delete course</a>
 		<?php } ?>
 		</div>
+	</div>
 
 	<div data-role="popup" id="confirmdelete">
 		<div data-role="header">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<h3>Delete course?</h3>
+			<h3>Delete course?</h3> 
 		</div>
 		<div class="ui-content">
 			<p>This action cannot be cancelled?</p>

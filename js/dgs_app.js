@@ -1,41 +1,55 @@
 // DGS App javascript
 
+
+var standalone = "standalone" in window.navigator && window.navigator.standalone;
+var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false );
+
 $("#launchpage").live('pageinit', function() {
-	// initial App load
+		// initial App load
 
-	// session
-	var tokenVal = localStorage.getItem('token');
-	
-	if(tokenVal != null) {
-		$.ajax({
-			url: 'session.php',
-			type: 'post',
-			data: { token: tokenVal },
-			success: function(res) {
-				if(res != "0") {
-					// update token
-					localStorage.setItem('token', res);
+		// session
+		var tokenVal = localStorage.getItem('token');
+		
+		if(tokenVal != null) {
+			$.ajax({
+				url: 'session.php',
+				type: 'post',
+				data: { token: tokenVal },
+				success: function(res) {
+					if(res != "0") {
+						// update token
+						localStorage.setItem('token', res);
+					}
+				},
+				complete: function() {
+					$.mobile.changePage('dgs.php');
 				}
-			},
-			complete: function() {
-				$.mobile.changePage('dgs.php');
-			}
-		});	
-	}
-	else {
-		$.mobile.changePage('dgs.php');
-	}
-	
-});
-
+			});	
+		}
+		else {
+			$.mobile.changePage('dgs.php');
+		}
+	});
 
 $("#login").live('pageinit', function() {
+
+	var userMail = localStorage.getItem('email');
+
+	if(userMail != null) {
+		$('form [name=email]').val(userMail);
+	}
 
 	// save session id to localStorage
 	$('#loginform').on('submit', function() {
 
 		var tokenVal = $('#tokenid').val();
 		localStorage.setItem('token', tokenVal);
+
+		userMail = $('form [name=email]').val();
+
+		if(userMail != null) {
+			localStorage.setItem('email', userMail);
+		}
 
 	});
 
@@ -72,7 +86,41 @@ $('#edithole').live('pageinit', function() {
 });
 
 $(document).delegate('#checkin', 'pageinit', function() {
-	initialize();
+	/* initialize(); */
+});
+
+
+
+var msgData = {
+	items: [
+			{
+				user: 'Henkka',
+				time: '2013-02-06 23:50:00',
+				text: 'Completed Siltamäki'
+			},
+			{
+				user: 'Henkka',
+				time: '2013-02-05 14:50:00',
+				text: 'Completed Tuusula'
+			}
+	]
+};
+
+
+
+$(document).delegate('#profile', 'pageinit', function () {
+
+	var markup = '';
+
+	for(var i=0; i < msgData.items.length; i++) {
+			markup += '<div class="msg"><div class="title"><img src="css/img/face.png" /><span>'
+						+ msgData.items[i].user
+						+ '</span><span>22 minutes ago</span></div><div><p>'
+						+ msgData.items[i].text
+						+ '</b></p></div></div>';
+		}
+
+	$("#msgcontainer").html(markup);
 });
 
 

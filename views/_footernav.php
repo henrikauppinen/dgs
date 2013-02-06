@@ -14,7 +14,7 @@ if(isset($_SESSION['oncourse'])) {
 	}
 }
 else {
-	$navbar[] = array('href' => 'dgs.php', 'name' => 'Friends', 'icon' => 'info');
+	$navbar[] = array('href' => 'dgs.php?p=dgs&f=checkin', 'name' => 'Check in', 'icon' => 'info');
 }
 
 $navbar[] = array('href' => 'dgs.php?p=courses', 'name' => 'Courses', 'icon' => 'grid');

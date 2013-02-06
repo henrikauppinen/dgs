@@ -2,17 +2,29 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		<a href="dgs.php?p=courses" data-icon="arrow-l">Back</a>
 		<h1><?php echo $data['pagetitle'] ?></h1>
-		<a href="dgs.php?p=courses&f=editcourse&cid=<?php echo $data['course']['id'] ?>" data-icon="gear">Edit</a>
+
 	</div>
-	<div class="head_content">
-		<p><?php echo $data['course']['name'] ?></p>
-	</div>
-	<div class="head_toolbar">
-		<div class="ui-grid-a">
-			<div class="ui-block-a"><span><?php echo $data['course']['streetaddress']."<br />".$data['course']['postcode']." ".$data['course']['city'] ?></span></div>
-			<div class="ui-block-b"><span><strong><?php echo $data['course']['rating'] ?></strong><br />Rating</span></div>
+
+	<div class="profile_head">
+
+		<div class="title">
+			<h1><?php echo $data['course']['name'] ?></h1>
 		</div>
-		<a href="dgs.php?p=courses&f=editcourse&cid=<?php echo $data['course']['id'] ?>" data-icon="gear" data-mini="true" data-role="button" data-inline="true">Edit</a>
+
+		<div class="container">
+			<p><?php echo $data['course']['streetaddress']." ".$data['course']['postcode']." ".$data['course']['city'] ?></p>
+			<a href="dgs.php?p=courses&f=editcourse&cid=<?php echo $data['course']['id'] ?>" data-role="button" data-icon="gear" data-mini="true" data-inline="true">edit</a>
+		</div>
+
+
+		<div class="ribbon">
+			<div class="ui-grid-c">
+				<div class="ui-block-a"><span><?php echo $data['course']['rating'] ?></span><span>RATING</span></div>
+				<div class="ui-block-b"><span><?php echo "18" ?></span><span>HOLES</span></div>
+				<div class="ui-block-c"><span><?php echo "-" ?></span><span>Avg.</span></div>
+				<div class="ui-block-d"><span><?php echo "-" ?></span><span>Sk.</span></div>
+			</div>
+		</div>
 	</div>
 
 	<div data-role="content"> 

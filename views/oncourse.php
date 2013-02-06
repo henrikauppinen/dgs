@@ -8,7 +8,7 @@
 		<ul data-role="listview">
 			<li><a href="#">End round</a></li>
 			<li><a href="dgs.php?p=dgs&f=checkin">Change location</a></li>
-			<li><a href="#">Check out</a></li>
+			<li><a href="dgs.php?p=dgs&f=checkout" data-icon="gear" class="ui-btn-right">Check out</a></li>
 		</ul>
 	</div>
 

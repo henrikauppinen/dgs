@@ -1,8 +1,8 @@
 <div data-role="page" id="profile">
-
 	<div data-role="header" data-theme="b" data-position="fixed">
+		
 		<h1>Profile</h1>
-		<a href="checkin" data-icon="check" class="ui-btn-right">Check in</a>
+
 	</div>
 
 	<div class="profile_head">
@@ -13,6 +13,7 @@
 
 		<div class="container">
 			<p><?php echo $data['user']['email'] ?></p>
+			<a href="#" data-role="button" data-icon="gear" data-mini="true" data-inline="true">edit</a>
 		</div>
 	</div>
 
@@ -25,9 +26,49 @@
 		</div>
 	</div>
 
-	
-	<div data-role="content">
-		
+	<div data-role="content" id="msgcontainer">
+		<div class="msg">
+			<div class="title">
+				<img src="css/img/face.png" />
+				<span>Henri Kauppinen</span>
+				<span>22 minutes ago</span>
+			</div>
+			<div>
+				<p>Round completed in Siltamäki <b>NEW HIGH SCORE!</b></p>
+			</div>
+		</div>
+		<div class="msg">
+			<div class="title">
+				<img src="css/img/face.png" />
+				<span>Henri Kauppinen</span>
+				<span>2 hours ago</span>
+			</div>
+			<div>
+				<p>Won a group round in Siltamäki!</p>
+			</div>
+		</div>
+
+		<div class="msg">
+			<div class="title">
+				<img src="css/img/face.png" />
+				<span>Henri Kauppinen</span>
+				<span>2 days ago</span>
+			</div>
+			<div>
+				<p>Round completed in Siltamäki</p>
+			</div>
+		</div>
+
+		<div class="msg">
+			<div class="title">
+				<img src="css/img/face.png" />
+				<span>Henri Kauppinen</span>
+				<span>3 hours ago</span>
+			</div>
+			<div>
+				<p>Round completed in Siltamäki</p>
+			</div>
+		</div>
 	</div>
 
 
