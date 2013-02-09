@@ -64,7 +64,14 @@ class dgs_controller extends controller {
 
 		$data['course'] = $this->model->getCourseData($cid);
 
-		$data['rounds'][] = $this->model->getLatestRound();
+		$data['latestround'] = $this->model->getLatestRound();
+
+		$data['friends'] = $this->model->getFriendsHere($cid);
+
+
+		$data['msg'][] = array(	'Henkka',
+								$this->getTimeAgoText($data['latestround']['endtime']),
+								'Course completed with score '.$data['latestround']['totalscore']);
 
 		$this->view('poolarea', $data);
 	}
@@ -152,6 +159,20 @@ class dgs_controller extends controller {
 		$data['scoresheet'] = $this->model->getScoresheetData($scoresheet_id);
 
 		$this->view('scoresheet', $data);
+	}
+
+
+	public function getTimeAgoText($time)
+	{
+		
+		$start_date = new DateTime($time);
+		$duration = $start_date->diff(new DateTime(date()));
+
+		if($duration->minutes > 59) {
+			return $duration->format('%h hours ago');
+		}
+
+		return $duration->format('%i minutes ago');
 	}
 	
 }

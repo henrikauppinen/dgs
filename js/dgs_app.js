@@ -91,6 +91,19 @@ $(document).delegate('#checkin', 'pageinit', function() {
 
 
 
+$(document).delegate('#oncourse', 'pageinit', function() {
+	
+	$('#panel-stats').on({
+		popupbeforeposition: function() {
+			var h = $(window).height();
+			$('#panel-stats').css('height', h);
+		}
+	});
+
+});
+
+
+
 var msgData = {
 	items: [
 			{

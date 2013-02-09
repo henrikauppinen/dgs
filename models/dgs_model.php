@@ -117,15 +117,18 @@ class dgs_model {
 		$re = $this->db->query("SELECT * FROM hole WHERE course_id = {$course_id}");
 
 		$totaldist = 0;
+		$totalpar = 0;
 
 		if(mysql_num_rows($re) > 0) {
 			while($row = mysql_fetch_assoc($re)) {
 				$data['holes'][] = $row;
 				$totaldist = $totaldist + $row['distance'];
+				$totalpar = $totalpar + $row['par'];
 			}
 		}
 
 		$data['totaldistance'] = $totaldist;
+		$data['totalpar'] = $totalpar;
 
 		return $data;
 	}
@@ -422,7 +425,6 @@ class dgs_model {
 		return $data;
 	}
 
-
 	public function getMessages()
 	{
 		$re = $this->db->query("SELECT * FROM message LIMIT 5");
@@ -442,6 +444,31 @@ class dgs_model {
 		$this->db->query("INSERT INTO message (content, type, link_id, createtime) VALUES ('{$message}', '{$type}', $link_id, now())");
 
 		return true;
+	}
+
+
+	public function getFriendsHere($cid = null)
+	{
+		# get users in location
+
+		if($cid == null) {
+			return false;
+		}
+
+		$re = $this->db->query("SELECT name FROM user WHERE oncourse = '{$cid}' AND id != '{$_SESSION['uid']}'");
+
+		if(mysql_num_rows($re) == 0) {
+			return null;
+		}
+
+		$data = array();
+
+		while($row = mysql_fetch_assoc($re)) {
+			$data[] = $row;
+		}
+
+		return $data;
+
 	}
 
 }

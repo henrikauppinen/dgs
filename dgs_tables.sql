@@ -65,6 +65,8 @@ CREATE TABLE score (
 
 CREATE TABLE message (
 	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT,
+	location_id INT,
 	content VARCHAR(200),
 	type INT NOT NULL,
 	link_id INT,

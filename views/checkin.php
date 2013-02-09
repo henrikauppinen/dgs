@@ -1,7 +1,8 @@
 <div data-role="page" id="checkin">
 	<div data-role="header" data-theme="b" data-position="fixed">
+		
 		<h1>Select course</h1>
-		<a href="#" data-role="button" data-rel="back" data-icon="delete">Close</a>
+		
 	</div>
 
 	<div id="map_canvas"></div>
@@ -19,5 +20,5 @@
 			} ?>
 		</ul>
 	</div>
-	<?php # include 'views/_footernav.php'; ?>
+	<?php include 'views/_footernav.php'; ?>
 </div>
