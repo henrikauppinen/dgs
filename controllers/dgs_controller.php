@@ -47,7 +47,7 @@ class dgs_controller extends controller {
 		$this->view('checkin', $data);
 	}
 
-	public function poolarea()
+	public function poolarea ()
 	{
 		$data['pagetitle'] = 'Course';
 		$data['page'] = 'poolarea';
@@ -68,10 +68,8 @@ class dgs_controller extends controller {
 
 		$data['friends'] = $this->model->getFriendsHere($cid);
 
-
-		$data['msg'][] = array(	'Henkka',
-								$this->getTimeAgoText($data['latestround']['endtime']),
-								'Course completed with score '.$data['latestround']['totalscore']);
+		# get course specific messages
+		$data['msg'] = $this->model->getMessages($cid, null);
 
 		$this->view('poolarea', $data);
 	}
@@ -107,13 +105,13 @@ class dgs_controller extends controller {
 
 		if($data['hole'] == false) {
 
-			$data['totalscore'] = $this->model->currentTotalScore();
-
+			$this->model->courseCompleted($_SESSION['scoresheet_id']);
 
 			$data['course'] = $this->model->getCourseData($_SESSION['oncourse']);
 
+			$data['scoresheet'] = $this->model->getScoresheetData($_SESSION['scoresheet_id']);
 
-			$this->model->createMessage(0, "User completed course @ {$data['course']['name']} with total score {$data['totalscore']}", $_SESSION['scoresheet_id']);
+			$this->model->createMessage(0, "Course completed at {$data['course']['name']} with score {$data['scoresheet']['totalscore']} ({$data['scoresheet']['diffpar']})", $_SESSION['scoresheet_id']);
 
 			unset($_SESSION['scoresheet_id']);
 			unset($_SESSION['last_hole_no']);
@@ -159,20 +157,6 @@ class dgs_controller extends controller {
 		$data['scoresheet'] = $this->model->getScoresheetData($scoresheet_id);
 
 		$this->view('scoresheet', $data);
-	}
-
-
-	public function getTimeAgoText($time)
-	{
-		
-		$start_date = new DateTime($time);
-		$duration = $start_date->diff(new DateTime(date()));
-
-		if($duration->minutes > 59) {
-			return $duration->format('%h hours ago');
-		}
-
-		return $duration->format('%i minutes ago');
 	}
 	
 }

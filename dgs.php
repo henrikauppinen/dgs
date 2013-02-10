@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+date_default_timezone_set('Europe/Helsinki');
+
 header('Content-type:text/html;Charset=utf-8');
 
 require_once 'models/db_model.php';

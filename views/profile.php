@@ -27,48 +27,6 @@
 	</div>
 
 	<div data-role="content" id="msgcontainer">
-		<div class="msg">
-			<div class="title">
-				<img src="css/img/face.png" />
-				<span>Henri Kauppinen</span>
-				<span>22 minutes ago</span>
-			</div>
-			<div>
-				<p>Round completed in Siltamäki <b>NEW HIGH SCORE!</b></p>
-			</div>
-		</div>
-		<div class="msg">
-			<div class="title">
-				<img src="css/img/face.png" />
-				<span>Henri Kauppinen</span>
-				<span>2 hours ago</span>
-			</div>
-			<div>
-				<p>Won a group round in Siltamäki!</p>
-			</div>
-		</div>
-
-		<div class="msg">
-			<div class="title">
-				<img src="css/img/face.png" />
-				<span>Henri Kauppinen</span>
-				<span>2 days ago</span>
-			</div>
-			<div>
-				<p>Round completed in Siltamäki</p>
-			</div>
-		</div>
-
-		<div class="msg">
-			<div class="title">
-				<img src="css/img/face.png" />
-				<span>Henri Kauppinen</span>
-				<span>3 hours ago</span>
-			</div>
-			<div>
-				<p>Round completed in Siltamäki</p>
-			</div>
-		</div>
 	</div>
 
 

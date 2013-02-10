@@ -1,4 +1,4 @@
-<div data-role="page">
+<div data-role="page" id="courselist">
 	<div data-role="header" data-theme="b" data-position="fixed">
 		
 		<h1><?php echo $data['pagetitle'] ?></h1> 

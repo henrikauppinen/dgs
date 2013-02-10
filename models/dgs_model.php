@@ -5,6 +5,11 @@ class dgs_model {
 	private $active_scoresheet_id = 1;
 	private $active_user_id = 1;
 
+	private $messagetypes = array(
+								0 => 'scoresheet',
+								1 => 'course'
+							);
+
 	public function __construct()
 	{
 		$this->db = new db_model();
@@ -135,7 +140,7 @@ class dgs_model {
 
 	public function getLatestRound()
 	{
-		$row = $this->db->fetchRow("SELECT id FROM scoresheet WHERE user_id = {$_SESSION['uid']} ORDER BY createtime DESC");
+		$row = $this->db->fetchRow("SELECT id FROM scoresheet WHERE user_id = {$_SESSION['uid']} AND status = 1 ORDER BY createtime DESC");
 
 		return $this->getScoresheetData($row['id']);
 
@@ -163,6 +168,9 @@ class dgs_model {
 		
 		$data['totalscore'] = $row['totalscore'];
 		$data['diffpar'] = $data['totalscore'] - $row['par'];
+		if($data['diffpar'] > 0) {
+			$data['diffpar'] = '+'.$data['diffpar'];
+		}
 
 		$re = $this->db->query("SELECT * FROM score WHERE scoresheet_id = {$id}");
 
@@ -425,13 +433,58 @@ class dgs_model {
 		return $data;
 	}
 
-	public function getMessages()
+	public function getMessages($cid = null, $uid = null)
 	{
-		$re = $this->db->query("SELECT * FROM message LIMIT 5");
+		
+		if($cid != null) {
+			#location specific messages
+			$qu = "SELECT
+						message.type,
+						user.name username,
+						message.content,
+						message.link_id,
+						message.createtime
+					FROM
+						message
+					JOIN user ON (user.id = message.user_id)
+					WHERE
+						location_id = '{$cid}'
+					ORDER BY createtime DESC
+					";
+		}
+		elseif($uid != null) {
+			# user specific messages
+			$qu = "SELECT
+						message.type,
+						user.name username,
+						message.content,
+						message.link_id,
+						message.createtime
+					FROM
+						message
+					JOIN user ON (user.id = message.user_id)
+					WHERE
+						user_id = '{$uid}'
+					ORDER BY createtime DESC
+					";
+		}
+		else {
+			$qu = "SELECT * FROM message";
+		}
+
+		$re = $this->db->query($qu." LIMIT 5");
+
+		if(mysql_num_rows($re) == 0) {
+			return null;
+		}
 
 		while($row = mysql_fetch_assoc($re)) {
 			if($row['type'] == 0) {
-				$row['href'] = "p=dgs&f=scoresheet&id={$row['link_id']}";
+
+
+				$row['href'] = "dgs.php?p=dgs&f=scoresheet&id={$row['link_id']}";
+				$row['timeago'] = $this->getTimeAgoText($row['createtime']);
+
 				$data[] = $row;
 			}
 		}
@@ -439,9 +492,33 @@ class dgs_model {
 		return $data;
 	}
 
+	public function getTimeAgoText($time)
+	{
+		
+		$start_date = new DateTime($time);
+		$duration = $start_date->diff(new DateTime("now"));
+		
+		if($duration->h > 0) {
+			if($duration->h == 1) {
+				return $duration->format('%h hour ago');
+			}
+			
+			return $duration->format('%h hours ago');
+		}
+
+		return $duration->format('%i minutes ago');
+	}
+
 	public function createMessage($type, $message, $link_id = null)
 	{
-		$this->db->query("INSERT INTO message (content, type, link_id, createtime) VALUES ('{$message}', '{$type}', $link_id, now())");
+		$this->db->query("INSERT INTO message (user_id, location_id, content, type, link_id, createtime)
+							VALUES ('{$_SESSION['uid']}',
+									'{$_SESSION['oncourse']}',
+									'{$message}',
+									'{$type}',
+									'{$link_id}',
+									now())
+						");
 
 		return true;
 	}
@@ -469,6 +546,17 @@ class dgs_model {
 
 		return $data;
 
+	}
+
+	public function courseCompleted($cid = null)
+	{
+		if($cid == null) {
+			return false;
+		}
+
+		$this->db->query("UPDATE scoresheet SET status = 1 WHERE id = '{$cid}'");
+
+		return true;
 	}
 
 }

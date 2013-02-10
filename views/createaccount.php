@@ -1,4 +1,4 @@
-<div data-role="page">
+<div data-role="page" id="createaccount">
 	<div data-role="header">
 		<h1><?php echo $data['pagetitle'] ?></h1>
 	</div>

@@ -104,38 +104,35 @@ $(document).delegate('#oncourse', 'pageinit', function() {
 
 
 
-var msgData = {
-	items: [
-			{
-				user: 'Henkka',
-				time: '2013-02-06 23:50:00',
-				text: 'Completed Siltamäki'
-			},
-			{
-				user: 'Henkka',
-				time: '2013-02-05 14:50:00',
-				text: 'Completed Tuusula'
-			}
-	]
-};
-
-
-
 $(document).delegate('#profile', 'pageinit', function () {
 
-	var markup = '';
-
-	for(var i=0; i < msgData.items.length; i++) {
-			markup += '<div class="msg"><div class="title"><img src="css/img/face.png" /><span>'
-						+ msgData.items[i].user
-						+ '</span><span>22 minutes ago</span></div><div><p>'
-						+ msgData.items[i].text
+	$.getJSON('dgs.php?p=api&f=poolmsg', function(data) {
+		$.each(data.items, function (i, item) {
+			markup = '<div class="msg"><div class="title"><img src="css/img/face.png" /><span>'
+						+ item.username
+						+ '</span><span>' + item.timeago + '</span></div><div><p>'
+						+ item.content
 						+ '</b></p></div></div>';
-		}
 
-	$("#msgcontainer").html(markup);
+			$('#msgcontainer').append(markup);
+		});
+	});
+
 });
 
+$(document).delegate('#poolarea', 'pageinit', function () {
+	$.getJSON('dgs.php?p=api&f=profilemsg', function(data) {
+		$.each(data.items, function (i, item) {
+			markup = '<div class="msg"><div class="title"><img src="css/img/face.png" /><span>'
+						+ item.username
+						+ '</span><span>' + item.timeago + '</span></div><div><p>'
+						+ item.content
+						+ '</b></p></div></div>';
+
+			$('#msgcontainer').append(markup);
+		});
+	});
+});
 
 function initialize() {
 	var mapOptions = {

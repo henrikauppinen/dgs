@@ -58,16 +58,17 @@
 				<?php
 					if(isset($data['msg']) && count($data['msg']) > 0) {
 						foreach($data['msg'] as $msg) { ?>
-							<div class="msg">
+							<a href="<?php echo $msg['href'] ?>" class="msg"><div class="msg">
 								<div class="title">
 									<img src="css/img/face.png" />
-									<span><?php echo $msg[0] ?></span>
-									<span><?php echo $msg[1] ?></span>
+									<span><?php echo $msg['username'] ?></span>
+									<span><?php echo $msg['timeago'] ?></span>
 								</div>
 								<div>
-									<p><?php echo $msg[2] ?></p>
+									<p><?php echo $msg['content'] ?></p>
 								</div>
-							</div>
+
+							</div></a>
 						<?php }
 					} ?>
 			</div>

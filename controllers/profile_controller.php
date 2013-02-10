@@ -19,6 +19,9 @@ class profile_controller extends controller {
 	public function profile()
 	{
 		$data = $this->model->userinfo();
+
+		$data['msg'] = $this->model->getMessages(null, $_SESSION['uid']);
+
 		$this->view('profile', $data);
 	}
 

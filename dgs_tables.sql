@@ -45,6 +45,7 @@ CREATE TABLE scoresheet (
 	id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	course_id INT,
+	status INT(1),
 	createtime DATETIME,
 	updatetime DATETIME,
 	completetime DATETIME,

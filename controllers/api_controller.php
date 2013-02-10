@@ -6,12 +6,33 @@ class api_controller extends controller {
 
 		$this->model = new dgs_model();
 		
-		#$page = param('f');
+		$page = param('f');
 
-		#if($page == FALSE) {
-		#	$page = 'frontpage';
-		#}
+		if($page == FALSE) {
+			$page = 'error';
+		}
 
-		#$this->$page();
+		$this->$page();
 	}
+
+	public function profilemsg()
+	{
+		$data['items'] = $this->model->getMessages(null, $_SESSION['uid']);
+
+		echo json_encode($data);
+
+	}
+
+	public function poolmsg()
+	{
+		$data['items'] = $this->model->getMessages($_SESSION['oncourse'], null);
+
+		echo json_encode($data);
+	}
+
+	public function error()
+	{
+		echo json_encode(null);
+	}
+
 }
