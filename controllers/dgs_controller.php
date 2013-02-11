@@ -47,6 +47,22 @@ class dgs_controller extends controller {
 		$this->view('checkin', $data);
 	}
 
+	public function checkout()
+	{
+		$this->model->checkOut();
+		
+		unset($_SESSION['oncourse']);
+		
+		if(isset($_SESSION['scoresheet_id'])) {
+			
+			$this->model->deleteScoresheet($_SESSION['scoresheet_id']);
+
+			unset($_SESSION['scoresheet_id']);
+		}
+		
+		header('Location: dgs.php?p=dgs');
+	}
+
 	public function poolarea ()
 	{
 		$data['pagetitle'] = 'Course';

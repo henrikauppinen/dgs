@@ -54,23 +54,7 @@
 		<div class="msgarea">
 			<span class="title">Current activity:</span>
 
-			<div class="msgcontainer">
-				<?php
-					if(isset($data['msg']) && count($data['msg']) > 0) {
-						foreach($data['msg'] as $msg) { ?>
-							<a href="<?php echo $msg['href'] ?>" class="msg"><div class="msg">
-								<div class="title">
-									<img src="css/img/face.png" />
-									<span><?php echo $msg['username'] ?></span>
-									<span><?php echo $msg['timeago'] ?></span>
-								</div>
-								<div>
-									<p><?php echo $msg['content'] ?></p>
-								</div>
-
-							</div></a>
-						<?php }
-					} ?>
+			<div id="poolmsg">
 			</div>
 		</div>
 		

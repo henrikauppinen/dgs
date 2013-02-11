@@ -4,6 +4,7 @@
 var standalone = "standalone" in window.navigator && window.navigator.standalone;
 var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false );
 
+
 $("#launchpage").live('pageinit', function() {
 		// initial App load
 
@@ -93,7 +94,6 @@ $(document).delegate('#checkin', 'pageinit', function() {
 $(document).delegate('#frontpage', 'pageinit', function() {
 	$.getJSON('dgs.php?p=api&f=allmsg', function(data) {
 		$('#msgcontainer').html($('#msgtmpl').render(data));
-		
 	});
 });
 
@@ -109,19 +109,41 @@ $(document).delegate('#oncourse', 'pageinit', function() {
 
 });
 
+
 $(document).delegate('#profile', 'pageinit', function () {
-
-	$.getJSON('dgs.php?p=api&f=profilemsg', function(data) {
-		$('#msgcontainer').html($('#msgtmpl').render(data));
-	});
-
+	var msgData = msgManager('profilemsg');
 });
+
 
 $(document).delegate('#poolarea', 'pageinit', function () {
-	$.getJSON('dgs.php?p=api&f=poolmsg', function(data) {
-		$('#msgcontainer').html($('#msgtmpl').render(data));
-	});
+	var msgData = msgManager('poolmsg');
 });
+
+
+
+
+
+function msgManager(key) {
+
+	/* get data from localStorage */
+	var msgs = JSON.parse(localStorage.getItem(key));
+
+	/* show data if any exists */
+	if(msgs != null) {
+		$('#' + key).html($('#msgtmpl').render(msgs));
+	}
+
+	/* get new data and save it to localStorage */
+	$.getJSON('dgs.php?p=api&f=' + key, function(data) {
+		localStorage.setItem(key, JSON.stringify(data));
+
+		/* render messages again */
+		$('#' + key).html($('#msgtmpl').render(data));
+
+	});
+
+}
+
 
 function initialize() {
 	var mapOptions = {

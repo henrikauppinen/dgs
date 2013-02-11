@@ -27,7 +27,7 @@
 	</div>
 
 	<div data-role="content">
-		<div id="msgcontainer"></div>
+			<div id="profilemsg"></div>
 	</div>
 
 	<?php include 'views/_footernav.php'; ?>

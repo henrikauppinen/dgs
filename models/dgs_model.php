@@ -401,6 +401,13 @@ class dgs_model {
 		return true;
 	}
 
+	public function checkOut()
+	{
+		$this->db->query("UPDATE user SET oncourse = null, checkintime = now() WHERE id = '{$_SESSION['uid']}'");
+
+		return true;
+	}
+
 	public function userinfo()
 	{
 		$uid = $_SESSION['uid'];
@@ -435,15 +442,12 @@ class dgs_model {
 
 	public function getMessages($cid = null, $uid = null)
 	{
-		
+		$sel_fields = "message.type, user.name username, message.content, message.link_id, message.createtime";
+
 		if($cid != null) {
 			#location specific messages
 			$qu = "SELECT
-						message.type,
-						user.name username,
-						message.content,
-						message.link_id,
-						message.createtime
+						$sel_fields
 					FROM
 						message
 					JOIN user ON (user.id = message.user_id)
@@ -455,11 +459,7 @@ class dgs_model {
 		elseif($uid != null) {
 			# user specific messages
 			$qu = "SELECT
-						message.type,
-						user.name username,
-						message.content,
-						message.link_id,
-						message.createtime
+						$sel_fields
 					FROM
 						message
 					JOIN user ON (user.id = message.user_id)
@@ -469,7 +469,11 @@ class dgs_model {
 					";
 		}
 		else {
-			$qu = "SELECT * FROM message";
+			$qu = "SELECT
+						$sel_fields
+					FROM
+						message
+					JOIN user ON (user.id = message.user_id)";
 		}
 
 		$re = $this->db->query($qu." LIMIT 5");
@@ -480,8 +484,6 @@ class dgs_model {
 
 		while($row = mysql_fetch_assoc($re)) {
 			if($row['type'] == 0) {
-
-
 				$row['href'] = "dgs.php?p=dgs&f=scoresheet&id={$row['link_id']}";
 				$row['timeago'] = $this->getTimeAgoText($row['createtime']);
 
