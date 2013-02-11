@@ -26,9 +26,9 @@
 		</div>
 	</div>
 
-	<div data-role="content" id="msgcontainer">
+	<div data-role="content">
+		<div id="msgcontainer"></div>
 	</div>
-
 
 	<?php include 'views/_footernav.php'; ?>
 </div>

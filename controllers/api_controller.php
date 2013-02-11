@@ -15,9 +15,16 @@ class api_controller extends controller {
 		$this->$page();
 	}
 
+	public function allmsg()
+	{
+		$data = $this->model->getMessages();
+
+		echo json_encode($data);
+	}
+
 	public function profilemsg()
 	{
-		$data['items'] = $this->model->getMessages(null, $_SESSION['uid']);
+		$data = $this->model->getMessages(null, $_SESSION['uid']);
 
 		echo json_encode($data);
 
@@ -25,7 +32,7 @@ class api_controller extends controller {
 
 	public function poolmsg()
 	{
-		$data['items'] = $this->model->getMessages($_SESSION['oncourse'], null);
+		$data = $this->model->getMessages($_SESSION['oncourse'], null);
 
 		echo json_encode($data);
 	}

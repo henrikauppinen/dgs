@@ -90,6 +90,13 @@ $(document).delegate('#checkin', 'pageinit', function() {
 });
 
 
+$(document).delegate('#frontpage', 'pageinit', function() {
+	$.getJSON('dgs.php?p=api&f=allmsg', function(data) {
+		$('#msgcontainer').html($('#msgtmpl').render(data));
+		
+	});
+});
+
 
 $(document).delegate('#oncourse', 'pageinit', function() {
 	
@@ -102,35 +109,17 @@ $(document).delegate('#oncourse', 'pageinit', function() {
 
 });
 
-
-
 $(document).delegate('#profile', 'pageinit', function () {
 
-	$.getJSON('dgs.php?p=api&f=poolmsg', function(data) {
-		$.each(data.items, function (i, item) {
-			markup = '<div class="msg"><div class="title"><img src="css/img/face.png" /><span>'
-						+ item.username
-						+ '</span><span>' + item.timeago + '</span></div><div><p>'
-						+ item.content
-						+ '</b></p></div></div>';
-
-			$('#msgcontainer').append(markup);
-		});
+	$.getJSON('dgs.php?p=api&f=profilemsg', function(data) {
+		$('#msgcontainer').html($('#msgtmpl').render(data));
 	});
 
 });
 
 $(document).delegate('#poolarea', 'pageinit', function () {
-	$.getJSON('dgs.php?p=api&f=profilemsg', function(data) {
-		$.each(data.items, function (i, item) {
-			markup = '<div class="msg"><div class="title"><img src="css/img/face.png" /><span>'
-						+ item.username
-						+ '</span><span>' + item.timeago + '</span></div><div><p>'
-						+ item.content
-						+ '</b></p></div></div>';
-
-			$('#msgcontainer').append(markup);
-		});
+	$.getJSON('dgs.php?p=api&f=poolmsg', function(data) {
+		$('#msgcontainer').html($('#msgtmpl').render(data));
 	});
 });
 

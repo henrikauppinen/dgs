@@ -9,9 +9,24 @@
     <meta charset="utf-8" />
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 	<link rel="stylesheet" href="css/dgs.css" />
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.mobile-1.2.0.min.js"></script>
+	<script src="js/jsrender.js"></script>
 	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=x&sensor=false"></script> -->
 	<script src="js/dgs_app.js"></script>
+	<script id="msgtmpl" type="text/x-jsrender">
+		<a href="{{>href}}" class="msg">
+			<div class="msg">
+				<div class="title">
+					<img src="css/img/face.png" />
+					<span>{{>username}}</span>
+					<span>{{>timeago}}</span>
+				</div>
+				<div>
+					<p>{{>content}}</p>
+				</div>
+			</div>
+		</a>
+	</script>
 </head>
 <body>
