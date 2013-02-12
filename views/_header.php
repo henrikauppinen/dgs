@@ -18,7 +18,7 @@
 		<a href="{{>href}}" class="msg">
 			<div class="msg">
 				<div class="title">
-					<img src="css/img/face.png" />
+					<img src="{{>imgurl}}" />
 					<span>{{>username}}</span>
 					<span>{{>timeago}}</span>
 				</div>

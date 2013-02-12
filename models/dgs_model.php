@@ -138,9 +138,14 @@ class dgs_model {
 		return $data;
 	}
 
-	public function getLatestRound()
+	public function getLatestRound($uid = null, $status = 1)
 	{
-		$row = $this->db->fetchRow("SELECT id FROM scoresheet WHERE user_id = {$_SESSION['uid']} AND status = 1 ORDER BY createtime DESC");
+
+		if($uid == null) {
+			$uid = $_SESSION['uid'];
+		}
+
+		$row = $this->db->fetchRow("SELECT id FROM scoresheet WHERE user_id = '{$uid}' AND status = $status ORDER BY createtime DESC");
 
 		return $this->getScoresheetData($row['id']);
 
@@ -338,13 +343,6 @@ class dgs_model {
 		# ...
 	}
 
-	public function getScoresheet($scoresheet_id = null)
-	{
-		if($scoresheet_id == null) {
-			return false;
-		}
-	}
-
 	public function createScore($hole_id = null, $score = null)
 	{
 		if($hole_id == null OR $score == null) {
@@ -418,6 +416,9 @@ class dgs_model {
 
 		$data['user'] = $this->db->fetchRow("SELECT name, email FROM user WHERE id = '{$uid}'");
 
+		# gravatar image url
+		$data['user']['imgurl'] = 'http://www.gravatar.com/avatar/'.md5(trim(strtolower($data['user']['email'])));
+
 		# total rounds
 		$row = $this->db->fetchRow("SELECT count(*) rounds FROM scoresheet WHERE user_id = {$uid}");
 		$data['stats']['rounds'] = $row['rounds'];
@@ -442,7 +443,7 @@ class dgs_model {
 
 	public function getMessages($cid = null, $uid = null)
 	{
-		$sel_fields = "message.type, user.name username, message.content, message.link_id, message.createtime";
+		$sel_fields = "message.type, user.name username, user.email, message.content, message.link_id, message.createtime";
 
 		if($cid != null) {
 			#location specific messages
@@ -483,6 +484,10 @@ class dgs_model {
 		}
 
 		while($row = mysql_fetch_assoc($re)) {
+
+			# gravatar image url
+			$row['imgurl'] = get_gravatar($row['email'], 23);
+
 			if($row['type'] == 0) {
 				$row['href'] = "dgs.php?p=dgs&f=scoresheet&id={$row['link_id']}";
 				$row['timeago'] = $this->getTimeAgoText($row['createtime']);
@@ -526,7 +531,7 @@ class dgs_model {
 	}
 
 
-	public function getFriendsHere($cid = null)
+	public function getUsersHere($cid = null)
 	{
 		# get users in location
 
@@ -534,7 +539,7 @@ class dgs_model {
 			return false;
 		}
 
-		$re = $this->db->query("SELECT name FROM user WHERE oncourse = '{$cid}' AND id != '{$_SESSION['uid']}'");
+		$re = $this->db->query("SELECT id, name, email FROM user WHERE oncourse = '{$cid}' AND id != '{$_SESSION['uid']}'");
 
 		if(mysql_num_rows($re) == 0) {
 			return null;
@@ -543,11 +548,33 @@ class dgs_model {
 		$data = array();
 
 		while($row = mysql_fetch_assoc($re)) {
+			$row['imgurl'] = get_gravatar($row['email'], 23);
+
+			$row['currentstatus'] = $this->getUserStatus($row['id']);
+
 			$data[] = $row;
 		}
 
 		return $data;
 
+	}
+
+	public function getUserStatus($uid = null)
+	{
+		if($uid == null) {
+			return false;
+		}
+
+		
+		$csc = $this->getLatestRound($uid, 0);
+
+		if($csc == false) {
+			return null;
+		}
+
+		$retstr = "@ hole ".(count($csc['throws']) + 1)." ({$csc['diffpar']})";
+
+		return $retstr;
 	}
 
 	public function courseCompleted($cid = null)

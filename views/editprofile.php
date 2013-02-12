@@ -1,7 +1,7 @@
-<div data-role="page" id="profile">
+<div data-role="page" id="editprofile">
 	<div data-role="header" data-theme="b" data-position="fixed">
 		
-		<h1>Profile</h1>
+		<h1>Edit</h1>
 
 	</div>
 

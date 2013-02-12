@@ -135,6 +135,12 @@ function msgManager(key) {
 
 	/* get new data and save it to localStorage */
 	$.getJSON('dgs.php?p=api&f=' + key, function(data) {
+
+		if(data == null) {
+			$('#' + key).html('<span>No recent activity</span>');
+			return false;
+		}
+
 		localStorage.setItem(key, JSON.stringify(data));
 
 		/* render messages again */

@@ -35,21 +35,27 @@
 
 	<div data-role="content">
 		<a href="dgs.php?p=dgs&f=oncourse" data-role="button" data-theme="g">Start round!</a>
-		
-		<br />
 
 		<div class="people">
 			<span class="title">Friends here:</span>
+			<div class="pplcontainer">
 			<?php
 				if(count($data['friends']) > 0) {
 					foreach($data['friends'] as $friend) { ?>
 						<div class="person">
-							<img src="css/img/face.png" />
+							<img src="<?php echo $friend['imgurl'] ?>" />
 							<span><?php echo $friend['name'] ?></span>
+							<?php if($friend['currentstatus'] != '') { ?>
+								<span><?php echo $friend['currentstatus'] ?></span>
+							<?php } ?>
 						</div>
 					<?php }
 				} ?>
+			</div>
 		</div>
+		
+		<div class="clear"></div>
+
 
 		<div class="msgarea">
 			<span class="title">Current activity:</span>

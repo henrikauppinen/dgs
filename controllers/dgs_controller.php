@@ -82,7 +82,7 @@ class dgs_controller extends controller {
 
 		$data['latestround'] = $this->model->getLatestRound();
 
-		$data['friends'] = $this->model->getFriendsHere($cid);
+		$data['friends'] = $this->model->getUsersHere($cid);
 
 		# get course specific messages
 		$data['msg'] = $this->model->getMessages($cid, null);
