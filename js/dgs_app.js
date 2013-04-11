@@ -4,8 +4,12 @@
 var standalone = "standalone" in window.navigator && window.navigator.standalone;
 var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false );
 
+// fastclick
+window.addEventListener('load', function() {
+    new FastClick(document.body);
+}, false);
 
-$("#launchpage").live('pageinit', function() {
+$(document).on('pageinit','#launchpage', function() {
 		// initial App load
 
 		// session
@@ -32,7 +36,7 @@ $("#launchpage").live('pageinit', function() {
 		}
 	});
 
-$("#login").live('pageinit', function() {
+$(document).on('pageinit', '#login', function() {
 
 	var userMail = localStorage.getItem('email');
 
@@ -57,7 +61,7 @@ $("#login").live('pageinit', function() {
 });
 
 /* edit course save button */
-$('#editcourse').live('pageinit', function() {
+$(document).on('pageinit', '#editcourse', function() {
 	$('#editcoursesave').on('vclick', function(e) {
 			
 		e.preventDefault();
@@ -72,7 +76,7 @@ $('#editcourse').live('pageinit', function() {
 });
 
 /* edit course save button */
-$('#edithole').live('pageinit', function() {
+$(document).on('pageinit', '#edithole', function() {
 	$('#editholesave').on('vclick', function(e) {
 			
 		e.preventDefault();
