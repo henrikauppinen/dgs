@@ -2,7 +2,7 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		<a href="#menupopup" data-rel="popup" data-icon="gear" data-iconpos="notext">Options</a>
 		<h1><?php echo $data['pagetitle'] ?></h1>
-		<a href="#panel-stats" data-rel="popup" data-transition="slide" data-position-to="window" data-icon="info" data-iconpos="notext">Stats</a>
+		<a href="#right-panel" data-icon="info" data-iconpos="notext">Stats</a>
 	</div>
 
 	<div data-role="popup" id="menupopup">
@@ -13,13 +13,16 @@
 		</ul>
 	</div>
 
-	<div data-role="popup" id="panel-stats" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
-		<button data-theme="a" data-icon="back" data-mini="true">Close</button>
-		<button data-theme="a" data-icon="refresh" data-mini="true">Refresh</button>
-		<ul data-role="listview" data-theme="a" data-mini="true">
-			<li>Einari<span>12</span></li>
-			<li>Jorgen<span>12</span></li>
+	<div data-role="panel" data-position="right" data-display="push" id="right-panel" data-theme="b">
+		<ul data-role="listview">
+			<?php
+			foreach($data['friends'] as $friend) {
+				echo "<li>{$friend['name']} / {$friend['currentstatus']}</li>";
+			}
+			?>
 		</ul>
+
+		<a data-role="button" href="#oncourse" data-rel="close">Close panel</a>
 	</div>
 	
 	<div class="ribbon">

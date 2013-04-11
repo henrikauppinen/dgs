@@ -140,6 +140,8 @@ class dgs_controller extends controller {
 
 			$data['scoresheet'] = $this->model->getScoresheetData($_SESSION['scoresheet_id']);
 
+			$data['friends'] = $this->model->getUsersHere($cid);
+
 			$data['pagetitle'] =  $data['hole']['sort'].': '.$data['hole']['name'];
 
 			for($i=1; $i<7; $i++) {
@@ -171,6 +173,10 @@ class dgs_controller extends controller {
 		$scoresheet_id = param('id');
 
 		$data['scoresheet'] = $this->model->getScoresheetData($scoresheet_id);
+
+		$data['course'] = $this->model->getCourseData($data['scoresheet']['course_id']);
+
+		$data['holestats'] = $this->model->getHoleStats($data['scoresheet']['course_id']);		
 
 		$this->view('scoresheet', $data);
 	}

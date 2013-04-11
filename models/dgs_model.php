@@ -504,16 +504,29 @@ class dgs_model {
 		
 		$start_date = new DateTime($time);
 		$duration = $start_date->diff(new DateTime("now"));
-		
-		if($duration->h > 0) {
-			if($duration->h == 1) {
-				return $duration->format('%h hour ago');
-			}
-			
+	
+		if($duration->y > 0) {
+			if($duration->y == 1) return $duration->format('%y year ago');
+			return $duration->format('%y years ago');
+		}
+		elseif($duration->m > 0) {
+			if($duration->m == 1) return $duration->format('%m month ago');
+			return $duration->format('%m months ago');
+		}
+		elseif($duration->d > 0) {
+			if($duration->d == 1) return $duration-format('%d day ago');
+			return $duration->format('%d days ago');
+		}
+		elseif($duration->h > 0) {
+			if($duration->h == 1) return $duration->format('%h hour ago');			
 			return $duration->format('%h hours ago');
 		}
+		elseif($duration->i > 0) {
+			if($duration->i == 1) return $duration->format('%i minute ago');
+			return $duration->format('%i minutes ago');
+		}
 
-		return $duration->format('%i minutes ago');
+		return false;
 	}
 
 	public function createMessage($type, $message, $link_id = null)
