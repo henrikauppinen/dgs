@@ -90,8 +90,12 @@ $(document).on('pageinit', '#edithole', function() {
 	});
 });
 
+var geoposition;
+
 $(document).delegate('#checkin', 'pageinit', function() {
-	/* initialize(); */
+
+	navigator.geolocation.getCurrentPosition(initialize);
+
 });
 
 
@@ -155,9 +159,9 @@ function msgManager(key) {
 }
 
 
-function initialize() {
+function initialize(location) {
 	var mapOptions = {
-		center: new google.maps.LatLng(60.272461, 24.981086),
+		center: new google.maps.LatLng(location.coords.latitude, location.coords.longitude),
 		disableDefaultUI: true,
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -169,3 +173,4 @@ function initialize() {
 		map: map
 	});
 }
+
