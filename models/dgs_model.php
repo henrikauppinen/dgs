@@ -601,4 +601,32 @@ class dgs_model {
 		return true;
 	}
 
+	public function getplaces($location = null, $distance = 25)
+	{
+		# get locations in radius
+		# haversine formula
+
+		if($location = null) {
+			return false;
+		}
+
+		$qu = "SELECT
+					id,
+					( 6371 * acos(cos(radians({$location['latitude']})) * cos(radians(lat)) * cos(radians(lng) - radians({$location['latitude']})) + sin(radians({$location['longitude']})) * sin(radians(lat)))) AS distance
+				FROM course
+				HAVING distance < {$distance}
+				ORDER BY distance
+				LIMIT 20";
+
+		$re = $this->db->query($qu);
+
+		$data = array();
+
+		while($row = mysql_fetch_assoc($re)) {
+			$data[] = $row;
+		}
+
+		return $data;
+	}
+
 }

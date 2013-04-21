@@ -37,6 +37,13 @@ class api_controller extends controller {
 		echo json_encode($data);
 	}
 
+	public function places()
+	{
+		$data = $this->model->getPlaces($location, 25);
+	
+		echo json_encode($data);
+	}
+
 	public function error()
 	{
 		echo json_encode(null);

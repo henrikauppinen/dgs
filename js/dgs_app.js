@@ -12,6 +12,8 @@ window.addEventListener('load', function() {
 $(document).on('pageinit','#launchpage', function() {
 		// initial App load
 
+		updateLocation();
+
 		// session
 		var tokenVal = localStorage.getItem('token');
 		
@@ -75,7 +77,7 @@ $(document).on('pageinit', '#editcourse', function() {
 	});
 });
 
-/* edit course save button */
+/* edit hole save button */
 $(document).on('pageinit', '#edithole', function() {
 	$('#editholesave').on('vclick', function(e) {
 			
@@ -92,9 +94,12 @@ $(document).on('pageinit', '#edithole', function() {
 
 var geoposition;
 
-$(document).delegate('#checkin', 'pageinit', function() {
+$(document).on('pageinit', '#checkin', function() {
 
-	navigator.geolocation.getCurrentPosition(initialize);
+	updateLocation();
+
+	initialize();
+
 
 });
 
@@ -159,9 +164,12 @@ function msgManager(key) {
 }
 
 
-function initialize(location) {
+function initialize() {
+
+	var loc = getLocation();
+	console.log(loc);
 	var mapOptions = {
-		center: new google.maps.LatLng(location.coords.latitude, location.coords.longitude),
+		center: new google.maps.LatLng(loc.latitude, loc.longitude),
 		disableDefaultUI: true,
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -174,3 +182,20 @@ function initialize(location) {
 	});
 }
 
+function updateLocation () {
+	navigator.geolocation.getCurrentPosition(saveLocation);
+}
+
+function saveLocation (loc) {
+	localStorage.setItem('latitude', loc.coords.latitude);
+	localStorage.setItem('longitude', loc.coords.longitude);
+}
+
+function getLocation() {
+	var loc = {};
+
+	loc.latitude = localStorage.getItem('latitude');
+	loc.longitude = localStorage.getItem('longitude');
+
+	return loc;
+}

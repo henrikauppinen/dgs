@@ -20,7 +20,7 @@ if(!(isset($_SESSION['logged'])))
 }
 else {
 
-	$controller = $_GET['p'];
+	$controller = getVar('p');
 
 	if($controller == '') {
 		$controller = 'dgs';

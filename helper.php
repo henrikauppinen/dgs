@@ -13,6 +13,10 @@ function param($name)
 	}
 }
 
+function getVar($var) {
+	return isset($_GET[$var]) ? $_GET[$var] : '';
+}
+
 /**
  * Get either a Gravatar URL or complete image tag for a specified email address.
  *
