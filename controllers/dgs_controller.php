@@ -42,8 +42,6 @@ class dgs_controller extends controller {
 		$data['pagetitle'] = 'Select course';
 		$data['page'] = 'checkin';
 
-		$data['courses'] = $this->model->listCourses();
-
 		$this->view('checkin', $data);
 	}
 
