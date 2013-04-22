@@ -11,9 +11,8 @@ class db_model {
 
 	private function connect()
 	{
-
-		require 'config.php';
-
+		global $db_host, $db_user, $db_pass, $db_name;
+		
 		$link = mysql_connect($db_host, $db_user, $db_pass) or die ("Ongelma tietokantapalvelimessa $db_host");
 		mysql_select_db($db_name, $link) or die ("Tietokantaa $db_name ei löydy palvelimelta $db_host!");
 		

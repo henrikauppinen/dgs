@@ -7,18 +7,12 @@
 
 	<div id="map_canvas"></div>
 
-	<div data-role="content">
-		
-		<ul data-role="listview">
-			<?php
-			foreach($data['courses'] as $course) {
-				?>
-				<li>
-					<a href="dgs.php?p=dgs&f=poolarea&cid=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a>
-				</li>
-				<?php
-			} ?>
+	<div data-role="content">	
+		<ul data-role="listview" id="courseslist">
 		</ul>
+	</div>
+
+	<div id="markercontainer">
 	</div>
 	<?php include 'views/_footernav.php'; ?>
 </div>

@@ -39,7 +39,11 @@ class api_controller extends controller {
 
 	public function places()
 	{
-		$data = $this->model->getPlaces($location, 25);
+
+		$location['latitude'] = getVar('lat');
+		$location['longitude'] = getVar('lon');
+
+		$data = $this->model->getPlaces($location, 100);
 	
 		echo json_encode($data);
 	}

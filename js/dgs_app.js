@@ -92,13 +92,20 @@ $(document).on('pageinit', '#edithole', function() {
 	});
 });
 
-var geoposition;
-
 $(document).on('pageinit', '#checkin', function() {
 
 	updateLocation();
 
-	initialize();
+	var loc = getLocation();
+
+	var map = initialize(loc);
+
+	$.getJSON('dgs.php?p=api&f=places&lat=' + loc.latitude + '&lon=' + loc.longitude, function(data) {
+		$('#courseslist').html($('#placestmpl').render(data)).listview('refresh');
+
+		updateMarkers(map, data);
+
+	});
 
 
 });
@@ -164,10 +171,8 @@ function msgManager(key) {
 }
 
 
-function initialize() {
-
-	var loc = getLocation();
-	console.log(loc);
+function initialize(loc) {
+	
 	var mapOptions = {
 		center: new google.maps.LatLng(loc.latitude, loc.longitude),
 		disableDefaultUI: true,
@@ -175,12 +180,26 @@ function initialize() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-	var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(60.272461, 24.981086),
-		map: map
-	});
+	
+	return map;
 }
+
+function updateMarkers (map, data) {
+
+	for (var i = 0; i < data.length; i++) {
+		var place = data[i];
+		
+		var myLatLng = new google.maps.LatLng(place['lat'], place['lng']);
+		
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: place[1],
+			zIndex: place[0]
+		});
+	}
+}
+
 
 function updateLocation () {
 	navigator.geolocation.getCurrentPosition(saveLocation);

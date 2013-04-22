@@ -21,8 +21,8 @@ CREATE TABLE course (
 	city VARCHAR(100),
 	country VARCHAR(100),
 	rating VARCHAR(2),
-	coord_lat FLOAT(10,6),
-	coord_long FLOAT(10,6),
+	lat FLOAT(10,6),
+	lng FLOAT(10,6),
 	createtime DATETIME,
 	PRIMARY KEY(id)
 	);

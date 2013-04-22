@@ -1,4 +1,5 @@
-<!DOCTYPE html> 
+<?php global $maps_api; ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>DGS</title>
@@ -13,7 +14,7 @@
 	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 	<script src="js/jsrender.js"></script>
 	<script src="js/fastclick.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=&sensor=false"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $maps_api ?>&sensor=false"></script>
 	<script src="js/dgs_app.js"></script>
 	<script id="msgtmpl" type="text/x-jsrender">
 		<a href="{{>href}}" class="msg">
@@ -28,6 +29,12 @@
 				</div>
 			</div>
 		</a>
+	</script>
+	<script id="placestmpl" type="text/x-jsrender">
+		<li>
+			<a href="dgs.php?p=dgs&f=poolarea&cid={{>id}}">{{>name}}</a>
+			<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{>distance}} km</span>
+		</li>
 	</script>
 </head>
 <body>

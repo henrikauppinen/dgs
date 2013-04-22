@@ -5,6 +5,7 @@ date_default_timezone_set('Europe/Helsinki');
 
 header('Content-type:text/html;Charset=utf-8');
 
+require_once 'config.php';
 require_once 'models/db_model.php';
 require_once 'controllers/controller.php';
 require_once 'helper.php';
