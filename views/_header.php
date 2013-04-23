@@ -1,4 +1,3 @@
-<?php global $maps_api; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +13,7 @@
 	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 	<script src="js/jsrender.js"></script>
 	<script src="js/fastclick.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $maps_api ?>&sensor=false"></script>
+	<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=&sensor=false"></script>-->
 	<script src="js/dgs_app.js"></script>
 	<script id="msgtmpl" type="text/x-jsrender">
 		<a href="{{>href}}" class="msg">

@@ -2,6 +2,7 @@
 
 # check if session exists
 
+require_once 'config.php';
 require_once 'models/db_model.php';
 
 $db = new db_model();

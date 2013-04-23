@@ -12,8 +12,6 @@ window.addEventListener('load', function() {
 $(document).on('pageinit','#launchpage', function() {
 		// initial App load
 
-		updateLocation();
-
 		// session
 		var tokenVal = localStorage.getItem('token');
 		
@@ -98,12 +96,12 @@ $(document).on('pageinit', '#checkin', function() {
 
 	var loc = getLocation();
 
-	var map = initialize(loc);
+	// var map = initialize(loc);
 
 	$.getJSON('dgs.php?p=api&f=places&lat=' + loc.latitude + '&lon=' + loc.longitude, function(data) {
 		$('#courseslist').html($('#placestmpl').render(data)).listview('refresh');
 
-		updateMarkers(map, data);
+		// updateMarkers(map, data);
 
 	});
 

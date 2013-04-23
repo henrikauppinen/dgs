@@ -167,8 +167,9 @@ class dgs_model {
 		$data['endtime'] = $row['endtime'];
 		
 		$start_date = new DateTime($data['createtime']);
-		$duration = $start_date->diff(new DateTime($row['endtime']));
 
+		$duration = $start_date->diff(new DateTime($row['endtime']));
+		
 		$data['time'] = $duration->format('%i minutes %s seconds');
 		
 		$data['totalscore'] = $row['totalscore'];
@@ -514,7 +515,7 @@ class dgs_model {
 			return $duration->format('%m months ago');
 		}
 		elseif($duration->d > 0) {
-			if($duration->d == 1) return $duration-format('%d day ago');
+			if($duration->d == 1) return $duration->format('%d day ago');
 			return $duration->format('%d days ago');
 		}
 		elseif($duration->h > 0) {
