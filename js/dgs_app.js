@@ -4,6 +4,8 @@
 var standalone = "standalone" in window.navigator && window.navigator.standalone;
 var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false );
 
+
+
 // fastclick
 window.addEventListener('load', function() {
     new FastClick(document.body);
@@ -11,6 +13,13 @@ window.addEventListener('load', function() {
 
 $(document).on('pageinit','#launchpage', function() {
 		// initial App load
+
+		if ('standalone' in navigator && !navigator.standalone && (/iphone|ipod|ipad/gi).test(navigator.platform) && (/Safari/i).test(navigator.appVersion)) {
+		  alert("Add to homescreen");
+			return false;
+		}
+			
+		updateLocation();
 
 		// session
 		var tokenVal = localStorage.getItem('token');
